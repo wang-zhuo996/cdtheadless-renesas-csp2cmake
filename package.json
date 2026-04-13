@@ -1,21 +1,169 @@
 {
-  "name": "renesas-csp2cmake",
-  "displayName": "renesas_csp2cmake",
-  "description": "",
-  "version": "0.0.1",
+  "name": "cdtheadlessbuild",
+  "displayName": "cdtheadlessbuild",
+  "description": "A tool to use CDT headless build mode",
+  "version": "0.0.2",
   "engines": {
-    "vscode": "^1.115.0"
+    "vscode": "^1.95.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "workspaceContains:**/.project",
+    "workspaceContains:**/.cproject",
+    "workspaceContains:.project",
+    "workspaceContains:.cproject",
+    "workspaceContains:*.mtpj"
+  ],
   "main": "./extension.js",
   "contributes": {
-    "commands": [{
-      "command": "renesas-csp2cmake.helloWorld",
-      "title": "Hello World"
-    }]
+    "commands": [
+      {
+        "command": "cdtheadlessbuild.helloWorld",
+        "title": "Hello World",
+        "icon": {
+          "light": "codicon-play-light",
+          "dark": "codicon-play-dark"
+        }
+      },
+      {
+        "command": "SearchedProjectTree.buildProject",
+        "title": "Build Project",
+        "icon": {
+          "light": "./icons/CodiconPlayLight.svg",
+          "dark": "./icons/CodiconPlayDark.svg"
+        }
+      },
+      {
+        "command": "RenesasCSP2CMake.buildProject",
+        "title": "Build Project",
+        "icon": "$(build)"
+      },
+      {
+        "command": "SearchedProjectTree.buildAllProject",
+        "title": "Build All Project",
+        "icon": {
+          "light": "./icons/CodiconRunAllLight.svg",
+          "dark": "./icons/CodiconRunAllDark.svg"
+        }
+      },
+      {
+        "command": "SearchedProjectTree.refreshEntry",
+        "title": "刷新",
+        "icon": {
+          "light": "./icons/CodiconRefreshLight.svg",
+          "dark": "./icons/CodiconRefreshDark.svg"
+        }
+      },
+      {
+        "command": "RenesasCSP2CMake.refreshEntry",
+        "title": "刷新",
+        "icon": {
+          "light": "./icons/CodiconRefreshLight.svg",
+          "dark": "./icons/CodiconRefreshDark.svg"
+        }
+      },
+      {
+        "command": "RenesasCSP2CMake.setCurrentProject",
+        "title": "Set as Active Project",
+        "icon": {
+          "light": "./icons/CodiconPlayLight.svg",
+          "dark": "./icons/CodiconPlayDark.svg"
+        }
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "cdtheadlessbuild-projectlist",
+          "title": "Eclipse CDT",
+          "icon": "./icons/eclipse-11-logo-svg-vector.svg"
+        },
+        {
+          "id": "renesas-csp2cmake-projectlist",
+          "title": "Renesas CSP2CMake",
+          "icon": "./icons/Renesas-memory.png"
+        }
+      ]
+    },
+    "views": {
+      "cdtheadlessbuild-projectlist": [
+        {
+          "id": "SearchedProjectTree",
+          "name": "Eclipse CDT 编译器项目树",
+          "icon": ""
+        }
+      ],
+      "renesas-csp2cmake-projectlist": [
+        {
+          "id": "RenesasCSP2CMake",
+          "name": "CS+ Cmake Builder",
+          "icon": ""
+        },
+        {
+          "id": "RenesasCSP2CMakeConfig",
+          "name": "CS+ Cmake Builder Config",
+          "icon": ""
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "SearchedProjectTree.refreshEntry",
+          "when": "view == SearchedProjectTree",
+          "group": "navigation"
+        },
+        {
+          "command": "SearchedProjectTree.buildAllProject",
+          "when": "view == SearchedProjectTree",
+          "group": "navigation"
+        },
+        {
+          "command": "RenesasCSP2CMake.refreshEntry",
+          "when": "view == RenesasCSP2CMakeConfig",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "SearchedProjectTree.buildProject",
+          "when": "view == SearchedProjectTree && viewItem != 'hasChildren'",
+          "group": "inline"
+        },
+        {
+          "command": "SearchedProjectTree.buildAllProject",
+          "when": "view == SearchedProjectTree && viewItem == 'hasChildren'",
+          "group": "inline"
+        },
+        {
+          "command": "RenesasCSP2CMake.buildProject",
+          "when": "view == RenesasCSP2CMakeConfig && viewItem != 'hasChildren'",
+          "group": "inline"
+        },
+        {
+          "command": "RenesasCSP2CMake.setCurrentProject",
+          "when": "view == RenesasCSP2CMakeConfig && viewItem == 'hasChildren'",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Eclipse CDT Configurations",
+      "properties": {
+        "cdtheadlessbuild.launchPath": {
+          "type": "string",
+          "default": "",
+          "description": "设置Eclipse启动路径"
+        },
+        "cdtheadlessbuild.argsAdded": {
+          "type": "array",
+          "default": [],
+          "description": "设置Eclipse启动 附加参数"
+        }
+      }
+    }
   },
   "scripts": {
     "lint": "eslint .",
@@ -23,11 +171,15 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.115.0",
-    "@types/mocha": "^10.0.10",
-    "@types/node": "22.x",
-    "eslint": "^9.39.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "@types/mocha": "^10.0.9",
+    "@types/node": "20.x",
+    "@types/vscode": "^1.95.0",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1",
+    "eslint": "^9.13.0"
+  },
+  "dependencies": {
+    "@vscode/codicons": "^0.0.36",
+    "xml2js": "^0.6.2"
   }
 }

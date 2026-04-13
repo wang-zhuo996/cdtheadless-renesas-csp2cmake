@@ -4,6 +4,11 @@ const vscode = require('vscode');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
+const TreeDataProvider = require("./data-views/nodeDependencies");
+const search_file = require("./src/search_file");
+
+// ── Renesas CSP2CMake ──────────────────────────────────────
+const renesasMtpj = require("./data-views/renesas-mtpj");
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -12,19 +17,35 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "renesas-csp2cmake" is now active!');
+	console.log('Congratulations, your extension "cdtheadlessbuild" is now active!');
 
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with  registerCommand
-	// The commandId parameter must match the command field in package.json
-	const disposable = vscode.commands.registerCommand('renesas-csp2cmake.helloWorld', function () {
-		// The code you place here will be executed every time your command is executed
+	// ── Eclipse CDT (existing) ──────────────────────────────
+	search_file.getProjectConfig();
 
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from renesas_csp2cmake!');
+	const nodeDependencies = new TreeDataProvider.MyTreeDataProvider();
+	vscode.window.registerTreeDataProvider("SearchedProjectTree", nodeDependencies);
+	vscode.commands.registerCommand("SearchedProjectTree.refreshEntry", () => nodeDependencies.refresh());
+	vscode.commands.registerCommand("SearchedProjectTree.buildProject", TreeDataProvider.executeBuildCommand);
+	vscode.commands.registerCommand("SearchedProjectTree.buildAllProject", (element) => {
+		vscode.window.showInformationMessage('buildAllProject is wating implementation');
+		console.log(element);
 	});
+	nodeDependencies.refresh();
 
-	context.subscriptions.push(disposable);
+	// ── Renesas CSP2CMake ────────────────────────────────────
+	const { projectProvider, buildModeProvider, buildProject, refreshEntry, setCurrentProject } = renesasMtpj;
+
+	// Register tree data providers
+	vscode.window.registerTreeDataProvider("RenesasCSP2CMake", projectProvider);
+	vscode.window.registerTreeDataProvider("RenesasCSP2CMakeConfig", buildModeProvider);
+
+	// Register commands
+	vscode.commands.registerCommand("RenesasCSP2CMake.refreshEntry", refreshEntry);
+	vscode.commands.registerCommand("RenesasCSP2CMake.buildProject", buildProject);
+	vscode.commands.registerCommand("RenesasCSP2CMake.setCurrentProject", setCurrentProject);
+
+	// Initial scan on activation
+	renesasMtpj.refreshAll().catch(err => console.error('[Renesas CSP2CMake] Activation error:', err));
 }
 
 // This method is called when your extension is deactivated
@@ -33,4 +54,4 @@ function deactivate() {}
 module.exports = {
 	activate,
 	deactivate
-}
+};
