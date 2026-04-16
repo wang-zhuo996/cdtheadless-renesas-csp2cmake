@@ -111,7 +111,7 @@ function getProjectConfig()
                 globalProjectConfig.push(tempDict)
             }
         }
-		console.log(globalProjectConfig)
+		// console.log(globalProjectConfig)
 	});
 }
 

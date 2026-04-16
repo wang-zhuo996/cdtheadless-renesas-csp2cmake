@@ -30,10 +30,7 @@
       {
         "command": "SearchedProjectTree.buildProject",
         "title": "Build Project",
-        "icon": {
-          "light": "./icons/CodiconPlayLight.svg",
-          "dark": "./icons/CodiconPlayDark.svg"
-        }
+        "icon": "$(play)"
       },
       {
         "command": "RenesasCSP2CMake.buildProject",
@@ -43,34 +40,22 @@
       {
         "command": "SearchedProjectTree.buildAllProject",
         "title": "Build All Project",
-        "icon": {
-          "light": "./icons/CodiconRunAllLight.svg",
-          "dark": "./icons/CodiconRunAllDark.svg"
-        }
+        "icon": "$(run-all)"
       },
       {
         "command": "SearchedProjectTree.refreshEntry",
         "title": "刷新",
-        "icon": {
-          "light": "./icons/CodiconRefreshLight.svg",
-          "dark": "./icons/CodiconRefreshDark.svg"
-        }
+        "icon": "$(refresh)"
       },
       {
         "command": "RenesasCSP2CMake.refreshEntry",
         "title": "刷新",
-        "icon": {
-          "light": "./icons/CodiconRefreshLight.svg",
-          "dark": "./icons/CodiconRefreshDark.svg"
-        }
+        "icon": "$(refresh)"
       },
       {
         "command": "RenesasCSP2CMake.setCurrentProject",
         "title": "Set as Active Project",
-        "icon": {
-          "light": "./icons/CodiconPlayLight.svg",
-          "dark": "./icons/CodiconPlayDark.svg"
-        }
+        "icon": "$(play)"
       }
     ],
     "viewsContainers": {
@@ -97,13 +82,13 @@
       ],
       "renesas-csp2cmake-projectlist": [
         {
-          "id": "RenesasCSP2CMake",
-          "name": "CS+ Cmake Builder",
+          "id": "RenesasCSP2CMakeConfig",
+          "name": "CS+ Cmake Builder Config",
           "icon": ""
         },
         {
-          "id": "RenesasCSP2CMakeConfig",
-          "name": "CS+ Cmake Builder Config",
+          "id": "RenesasCSP2CMake",
+          "name": "CS+ Cmake Builder",
           "icon": ""
         }
       ]
@@ -122,7 +107,7 @@
         },
         {
           "command": "RenesasCSP2CMake.refreshEntry",
-          "when": "view == RenesasCSP2CMakeConfig",
+          "when": "view == RenesasCSP2CMake",
           "group": "navigation"
         }
       ],
@@ -139,12 +124,12 @@
         },
         {
           "command": "RenesasCSP2CMake.buildProject",
-          "when": "view == RenesasCSP2CMakeConfig && viewItem != 'hasChildren'",
+          "when": "view == RenesasCSP2CMake && viewItem != 'hasChildren'",
           "group": "inline"
         },
         {
           "command": "RenesasCSP2CMake.setCurrentProject",
-          "when": "view == RenesasCSP2CMakeConfig && viewItem == 'hasChildren'",
+          "when": "view == RenesasCSP2CMake && viewItem == 'hasChildren'",
           "group": "inline"
         }
       ]
@@ -180,6 +165,7 @@
   },
   "dependencies": {
     "@vscode/codicons": "^0.0.36",
+    "ejs": "^5.0.2",
     "xml2js": "^0.6.2"
   }
 }

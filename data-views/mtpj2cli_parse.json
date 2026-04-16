@@ -1,0 +1,1041 @@
+{
+    "Compile": {
+        "GeneralOptionXobjPath": {
+            "cli_option": "-Xobj-path",
+            "arg": "path",
+            "type": "string-env"
+        },
+        "COptionXasmPath": {
+            "cli_option": "-Xasm-path",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXasmPathValue": {
+            "cli_option": "-Xasm-path",
+            "arg": "path",
+            "type": "string-env"
+        },
+        "COptionXprepPath": {
+            "cli_option": "-Xprep-path",
+            "arg": "path",
+            "type": "string-env"
+        },
+        "COptionG": {
+            "cli_option": "-g",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionGLine": {
+            "cli_option": "-g_line",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionXcommon": {
+            "cli_option": "-Xcommon",
+            "arg": "series",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "GeneralOptionCoreCPU": {
+            "cli_option": "-Xcpu",
+            "arg": "core",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionP": {
+            "cli_option": "-P",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionMOrC": {
+            "cli_option": "-c",
+            "arg": "switch",
+            "type": "string"
+        },
+        "COptionD": {
+            "cli_option": "-D",
+            "arg": "macro",
+            "type": "list"
+        },
+        "COptionU": {
+            "cli_option": "-U",
+            "arg": "macro",
+            "type": "list"
+        },
+        "COptionI": {
+            "cli_option": "-I",
+            "arg": "dir",
+            "type": "list"
+        },
+        "COptionISystem": {
+            "cli_option": "-I",
+            "arg": "dir",
+            "type": "list"
+        },
+        "COptionXpreinclude": {
+            "cli_option": "-Xpreinclude",
+            "arg": "file",
+            "type": "string-env"
+        },
+        "COptionXpreprocessComment": {
+            "cli_option": "-Xpreprocess",
+            "arg": "comment",
+            "type": "boolean"
+        },
+        "COptionXpreprocessLine": {
+            "cli_option": "-Xpreprocess",
+            "arg": "line",
+            "type": "boolean"
+        },
+        "COptionLangC": {
+            "cli_option": "-lang",
+            "arg": "language",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionStrictStd": {
+            "cli_option": "-strict-std",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXansi": {
+            "cli_option": "-Xansi",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXenumType": {
+            "cli_option": "-Xenum_type",
+            "arg": "enum_type",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXvolatile": {
+            "cli_option": "-Xvolatile",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXcheck": {
+            "cli_option": "-Xcheck",
+            "arg": "comp",
+            "type": "string"
+        },
+        "COptionXmisra2004": {
+            "cli_option": "-Xmisra2004",
+            "arg": "item",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXmisra2004RuleNumberApply": {
+            "cli_option": "-Xmisra2004",
+            "arg": "apply_num",
+            "type": "string"
+        },
+        "COptionXmisra2004RuleNumberIgnore": {
+            "cli_option": "-Xmisra2004",
+            "arg": "ignore_num",
+            "type": "string"
+        },
+        "COptionXmisra2004RuleNumberRequiredAdd": {
+            "cli_option": "-Xmisra2004",
+            "arg": "requiredadd_num",
+            "type": "string"
+        },
+        "COptionXmisra2004RuleNumberRequiredRemove": {
+            "cli_option": "-Xmisra2004",
+            "arg": "requiredremove_num",
+            "type": "string"
+        },
+        "COptionXmisra2004RuleFile": {
+            "cli_option": "-Xmisra2004",
+            "arg": "file_name",
+            "type": "string-env"
+        },
+        "COptionXmisra2012": {
+            "cli_option": "-Xmisra2012",
+            "arg": "item",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXmisra2012RuleFile": {
+            "cli_option": "-Xmisra2012",
+            "arg": "file_name",
+            "type": "string-env"
+        },
+        "COptionXmisra2012RuleNumberApply": {
+            "cli_option": "-Xmisra2012",
+            "arg": "apply_num",
+            "type": "string"
+        },
+        "COptionXmisra2012RuleNumberIgnore": {
+            "cli_option": "-Xmisra2012",
+            "arg": "ignore_num",
+            "type": "string"
+        },
+        "COptionXmisra2012RuleNumberRequiredAdd": {
+            "cli_option": "-Xmisra2012",
+            "arg": "requiredadd_num",
+            "type": "string"
+        },
+        "COptionXmisra2012RuleNumberRequiredRemove": {
+            "cli_option": "-Xmisra2012",
+            "arg": "requiredremove_num",
+            "type": "string"
+        },
+        "COptionXignoreFilesMisra": {
+            "cli_option": "-Xignore_files_misra",
+            "arg": "file_list",
+            "type": "list"
+        },
+        "COptionXcheckLanguageExtension": {
+            "cli_option": "-Xcheck_language_extension",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionMisraIntermodule": {
+            "cli_option": "-misra-intermodule",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXuseFp16": {
+            "cli_option": "-Xuse_fp16",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXcharacterSet": {
+            "cli_option": "-Xcharacter_set",
+            "arg": "charset",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionOsize": {
+            "cli_option": "-O",
+            "arg": "level",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionOunroll": {
+            "cli_option": "-Ounroll",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionOinline": {
+            "cli_option": "-Oinline",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionOinlineSize": {
+            "cli_option": "-Oinline_size",
+            "arg": "size",
+            "type": "string"
+        },
+        "COptionOinlineInit": {
+            "cli_option": "-Oinline_init",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionOdeleteStaticFunc": {
+            "cli_option": "-Odelete_static_func",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionOpipeline": {
+            "cli_option": "-Opipeline",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionOtailCall": {
+            "cli_option": "-Otail_call",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionMap": {
+            "cli_option": "-map",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXintermodule": {
+            "cli_option": "-intermodule",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXinlineStrcpy": {
+            "cli_option": "-Xinline_strcpy",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXmergeString": {
+            "cli_option": "-Xmerge_string",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXaliasAnsi": {
+            "cli_option": "-Xalias",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionLibraryIntrinsic": {
+            "cli_option": "-library",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionGoptimize": {
+            "cli_option": "-goptimize",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXpack": {
+            "cli_option": "-Xpack",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXbitOrder": {
+            "cli_option": "-Xbit_order",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXpassSource": {
+            "cli_option": "-Xpass_source",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXswitch": {
+            "cli_option": "-Xswitch",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "GeneralOptionXregMode": {
+            "cli_option": "-Xreg_mode",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "GeneralOptionXreserveR2": {
+            "cli_option": "-Xreserve_r2",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionR4": {
+            "cli_option": "-R4",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "GeneralOptionXep": {
+            "cli_option": "-Xep",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXfloat": {
+            "cli_option": "-Xfloat",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXfxu": {
+            "cli_option": "-Xfxu",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXcallJump": {
+            "cli_option": "-Xcall_jump",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXfarJump": {
+            "cli_option": "-Xfar_jump",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXdiv": {
+            "cli_option": "-Xdiv",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXcheckDivOv": {
+            "cli_option": "-Xcheck_div_ov",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXcheckDivOvValue": {
+            "cli_option": "-Xcheck_div_ov",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionRelaxedMath": {
+            "cli_option": "-relaxed-math",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXuseFmaf": {
+            "cli_option": "-Xuse_fmaf",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionUseRecipf": {
+            "cli_option": "-use_recipf",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionApproximate": {
+            "cli_option": "-approximate",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXunorderedCmpf": {
+            "cli_option": "-Xunordered_cmpf",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXmultiLevel": {
+            "cli_option": "-Xmulti_level",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXdblSize": {
+            "cli_option": "-Xdbl_size",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXround": {
+            "cli_option": "-Xround",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXstackProtector": {
+            "cli_option": "-Xstack_protector",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionXstackProtectorValue": {
+            "cli_option": "-Xstack_protector",
+            "arg": "number",
+            "type": "string"
+        },
+        "COptionXsectionData": {
+            "cli_option": "-Xsection",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionStuffBSS": {
+            "cli_option": "-stuff_bss",
+            "arg": "bss",
+            "type": "boolean"
+        },
+        "COptionStuffData": {
+            "cli_option": "-stuff_data",
+            "arg": "data",
+            "type": "boolean"
+        },
+        "COptionStuffConst": {
+            "cli_option": "-stuff_const",
+            "arg": "const",
+            "type": "boolean"
+        },
+        "COptionStoreReg": {
+            "cli_option": "-store_reg",
+            "arg": "reg",
+            "type": "string"
+        },
+        "COptionControlFlowIntegrity": {
+            "cli_option": "-control_flow_integrity",
+            "arg": "value",
+            "type": "string"
+        },
+        "GeneralOptionPICPIROD": {
+            "cli_option": "-pic",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionPID": {
+            "cli_option": "-pid",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionXcref": {
+            "cli_option": "-Xcref",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionXerrorFile": {
+            "cli_option": "-Xerror_file",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionXerrorFileName": {
+            "cli_option": "-Xerror_file",
+            "arg": "file_name",
+            "type": "string-env"
+        },
+        "GeneralOptionXnoWarning": {
+            "cli_option": "-Xno_warning",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionChangeMessageError": {
+            "cli_option": "-change_message",
+            "arg": "value",
+            "type": "string"
+        },
+        "COptionChangeMessageErrorNumber": {
+            "cli_option": "-change_message",
+            "arg": "msg_id",
+            "type": "string"
+        }
+    },
+    "Assemble": {
+        "AsmOptionGoptimize": {
+            "cli_option": "-goptimize",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionG": {
+            "cli_option": "-g",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "GeneralOptionCoreCPU": {
+            "cli_option": "-Xcpu",
+            "arg": "core",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionI": {
+            "cli_option": "-I",
+            "arg": "dir",
+            "type": "list"
+        },
+        "COptionISystem": {
+            "cli_option": "-I",
+            "arg": "dir",
+            "type": "list"
+        },
+        "COptionD": {
+            "cli_option": "-D",
+            "arg": "macro",
+            "type": "list"
+        },
+        "COptionU": {
+            "cli_option": "-U",
+            "arg": "macro",
+            "type": "list"
+        },
+        "AsmOptionMMOrC": {
+            "cli_option": "-c",
+            "arg": "switch",
+            "type": "string"
+        },
+        "COptionXcharacterSet": {
+            "cli_option": "-Xcharacter_set",
+            "arg": "charset",
+            "type": "string",
+            "rule": "lowercase"
+        },
+        "COptionXasmFarJump": {
+            "cli_option": "-Xasm_option_asm_for_jump",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXprnPath": {
+            "cli_option": "-Xasm_option_prn_path",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "COptionXprnPathValue": {
+            "cli_option": "-Xasm_option_prn_path",
+            "arg": "path",
+            "type": "string-env"
+        },
+        "GeneralOptionXregMode": {
+            "cli_option": "-Xreg_mode",
+            "arg": "value",
+            "type": "string",
+            "rule": "lowercase"
+        }
+    },
+    "Link": {
+        "LinkOptionCpu": {
+            "cli_option": "-cpu",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionCpuInformation": {
+            "cli_option": "-cpu",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionDebug": {
+            "cli_option": "-debug",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionCompress": {
+            "cli_option": "-compress",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionHide": {
+            "cli_option": "-hide",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionEntry": {
+            "cli_option": "-entry",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionEntryPoint": {
+            "cli_option": "-entry",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionInput": {
+            "cli_option": "-input",
+            "arg": "value",
+            "type": "list"
+        },
+        "LinkOptionLibrary": {
+            "cli_option": "-library",
+            "arg": "value",
+            "type": "list"
+        },
+        "LinkOptionLibraryStandard2": {
+            "cli_option": "-library_std",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionLibraryStandardMathematics": {
+            "cli_option": "-library_std_math",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionLibraryLibMalloc": {
+            "cli_option": "-library_std_sec",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionLibraryLibC": {
+            "cli_option": "-library_compatible_c",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionLibraryLibM": {
+            "cli_option": "-library_compatible_m",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionLibraryLibMF": {
+            "cli_option": "-library_compatible_mf",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionLibraryLibSetJmp": {
+            "cli_option": "-library_setjmp",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionListShow": {
+            "cli_option": "-list",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionShowSymbol": {
+            "cli_option": "-list_show_symbol",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionShowReference": {
+            "cli_option": "-list_show_reference",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionShowXreference": {
+            "cli_option": "-list_show_xreference",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionShowTotalSize": {
+            "cli_option": "-list_show_total_size",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionShowStruct": {
+            "cli_option": "-list_show_struct",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionShowRelocationAttribute": {
+            "cli_option": "-list_show_relocation_attribute",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionShowCFI": {
+            "cli_option": "-list_show_cfi",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionStart": {
+            "cli_option": "-start",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionFSymbol": {
+            "cli_option": "-fsymbol",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionAlignedSection": {
+            "cli_option": "-aligned_section",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionRom": {
+            "cli_option": "-rom",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionMessage": {
+            "cli_option": "-message",
+            "arg": "switch",
+            "type": "string"
+        },
+        "LinkOptionNoMessageErrorNumber": {
+            "cli_option": "-message",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionMsgUnused": {
+            "cli_option": "-msg_unused",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionChangeMessageInformation": {
+            "cli_option": "-change_message_info",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionChangeMessageInformationNumber": {
+            "cli_option": "-change_message_info",
+            "arg": "number",
+            "type": "string"
+        },
+        "LinkOptionChangeMessageWarning": {
+            "cli_option": "-change_message_warn",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionChangeMessageWarningNumber": {
+            "cli_option": "-change_message_warn",
+            "arg": "number",
+            "type": "string"
+        },
+        "LinkOptionChangeMessageError": {
+            "cli_option": "-change_message_err",
+            "arg": "value",
+            "type": "string"
+        },
+        "LinkOptionChangeMessageErrorNumber": {
+            "cli_option": "-change_message_err",
+            "arg": "number",
+            "type": "string"
+        },
+        "LinkOptionStack": {
+            "cli_option": "-stack",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionMemory": {
+            "cli_option": "-memory",
+            "arg": "switch",
+            "type": "string"
+        },
+        "LinkOptionTotalSize": {
+            "cli_option": "-total_size",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionLogo": {
+            "cli_option": "-logo",
+            "arg": "switch",
+            "type": "string"
+        },
+        "LinkOptionMap": {
+            "cli_option": "-map",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LinkOptionOutputFolder": {
+            "cli_option": "-output",
+            "arg": "folder",
+            "type": "string-env"
+        },
+        "LinkOptionOutputFileName": {
+            "cli_option": "-output",
+            "arg": "file",
+            "type": "string-env"
+        }
+    },
+    "Hexoutput": {
+        "HexOptionLoadAddress": {
+            "cli_option": "-output_default_nb",
+            "arg": "address",
+            "type": "string"
+        },
+        "HexOptionOutputFolder": {
+            "cli_option": [
+                "-output_default_nb",
+                "output_default_b"
+            ],
+            "arg": "folder",
+            "type": "string-env"
+        },
+        "HexOptionOutputFileName": {
+            "cli_option": [
+                "-output_default_nb",
+                "output_default_b"
+            ],
+            "arg": "file",
+            "type": "string-env"
+        },
+        "HexOptionOutput": {
+            "cli_option": [
+                "-output_default_nb",
+                "output_default_b"
+            ],
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "HexOptionDivisionOutputFile": {
+            "cli_option": "-output_division",
+            "arg": "value",
+            "type": "list"
+        },
+        "HexOptionForm": {
+            "cli_option": "-form",
+            "arg": "value",
+            "type": "string"
+        },
+        "HexOptionRecordH": {
+            "cli_option": "-record_h",
+            "arg": "value",
+            "type": "string"
+        },
+        "HexOptionRecordS": {
+            "cli_option": "-record_s",
+            "arg": "value",
+            "type": "string"
+        },
+        "HexOptionFixRecordLengthAndAlign": {
+            "cli_option": "-fix_record_length_and_align",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "HexOptionFixRecordLengthAndAlignValue": {
+            "cli_option": "-fix_record_length_and_align",
+            "arg": "value",
+            "type": "string"
+        },
+        "HexOptionByteCount": {
+            "cli_option": "-byte_count",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "HexOptionByteCountValue": {
+            "cli_option": "-byte_count",
+            "arg": "value",
+            "type": "string"
+        },
+        "HexOptionEndRecord": {
+            "cli_option": "-end_record",
+            "arg": "value",
+            "type": "string"
+        },
+        "HexOptionS9": {
+            "cli_option": "-s9",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "HexOptionCrc": {
+            "cli_option": "-crc",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "HexOptionCrcOutputAddress": {
+            "cli_option": "-crc",
+            "arg": "out_address",
+            "type": "string"
+        },
+        "HexOptionCrcCalculationRange": {
+            "cli_option": "-crc",
+            "arg": "range",
+            "type": "string"
+        },
+        "HexOptionCrcType": {
+            "cli_option": "-crc",
+            "arg": "type",
+            "type": "string"
+        },
+        "HexOptionCrcEndian": {
+            "cli_option": "-crc",
+            "arg": "endian",
+            "type": "string"
+        },
+        "HexOptionCrcInitialValue": {
+            "cli_option": "-crc",
+            "arg": "initial_value",
+            "type": "string"
+        },
+        "HexOptionCrcOutputSize": {
+            "cli_option": "-crc",
+            "arg": "out_size",
+            "type": "string"
+        },
+        "HexOptionVerboseCrc": {
+            "cli_option": "-verbose",
+            "arg": "verbose_crc",
+            "type": "boolean"
+        }
+    },
+    "Library": {
+        "LibOptionHide": {
+            "cli_option": "-hide",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionInput": {
+            "cli_option": "-input",
+            "arg": "value",
+            "type": "list"
+        },
+        "LibOptionLibrary": {
+            "cli_option": "-library",
+            "arg": "value",
+            "type": "list"
+        },
+        "LibOptionForm": {
+            "cli_option": "-form",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionOutputFolder": {
+            "cli_option": "-output",
+            "arg": "folder",
+            "type": "string-env"
+        },
+        "LibOptionOutputFileName": {
+            "cli_option": "-output",
+            "arg": "file",
+            "type": "string-env"
+        },
+        "LibOptionLibraryStandard2": {
+            "cli_option": "-library_std",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionLibraryStandardMathematics": {
+            "cli_option": "-library_std_math",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionLibraryLibMalloc": {
+            "cli_option": "-library_std_sec",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionLibraryLibC": {
+            "cli_option": "-library_compatible_c",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionLibraryLibM": {
+            "cli_option": "-library_compatible_m",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionLibraryLibMF": {
+            "cli_option": "-library_compatible_mf",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionLibraryLibSetJmp": {
+            "cli_option": "-library_setjmp",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionAllowDuplicateModuleName": {
+            "cli_option": "-allow_duplicate_module_name",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionListShow": {
+            "cli_option": "-list",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionShowSymbol": {
+            "cli_option": "-list_show_symbol",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionShowSection": {
+            "cli_option": "-list_show_section",
+            "arg": "switch",
+            "type": "boolean"
+        },
+        "LibOptionLogo": {
+            "cli_option": "-logo",
+            "arg": "switch",
+            "type": "string"
+        },
+        "LibOptionMessage": {
+            "cli_option": "-message",
+            "arg": "switch",
+            "type": "string"
+        },
+        "LibOptionNoMessageErrorNumber": {
+            "cli_option": "-message",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionChangeMessageInformation": {
+            "cli_option": "-change_message_info",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionChangeMessageInformationNumber": {
+            "cli_option": "-change_message_info",
+            "arg": "number",
+            "type": "string"
+        },
+        "LibOptionChangeMessageWarning": {
+            "cli_option": "-change_message_warn",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionChangeMessageWarningNumber": {
+            "cli_option": "-change_message_warn",
+            "arg": "number",
+            "type": "string"
+        },
+        "LibOptionChangeMessageError": {
+            "cli_option": "-change_message_err",
+            "arg": "value",
+            "type": "string"
+        },
+        "LibOptionChangeMessageErrorNumber": {
+            "cli_option": "-change_message_err",
+            "arg": "number",
+            "type": "string"
+        }
+    }
+}

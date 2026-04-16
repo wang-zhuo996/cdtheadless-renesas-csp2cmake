@@ -62,12 +62,7 @@
           "rule": "lowercase",
           "xml_to_cli": {
             "RH850": "rh850",
-            "RH850C": "rh850c",
-            "RH850U": "rh850u",
-            "RL78": "rl78",
-            "78K0R": "78k0r",
-            "RL78G3": "rl78g3",
-            "78K0R_G3": "78k0r_g3"
+            "V850E3V5": "v850e3v5"
           }
         }
       },

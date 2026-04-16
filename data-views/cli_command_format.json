@@ -1,0 +1,2476 @@
+{
+    "CompileOptions": {
+        "-V": {
+            "description": "显示编译器版本信息",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [],
+            "format": "-V",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-h": {
+            "description": "显示帮助信息",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [],
+            "format": "-h",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-o": {
+            "description": "指定输出文件",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "file"
+            ],
+            "switch": "<%= file %>",
+            "format": "-o<%= file %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xobj_path": {
+            "description": "指定对象文件输出路径",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "path"
+            ],
+            "switch": "<%= path %>",
+            "format": "-Xobj_path=<%= path %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xasm_path": {
+            "description": "指定汇编文件输出路径",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "path",
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xasm_path=<%= path %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xprep_path": {
+            "description": "指定预处理文件输出路径",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "path"
+            ],
+            "switch": "<%= path %>",
+            "format": "-Xprep_path=<%= path %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-g": {
+            "description": "生成调试信息",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-g",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-g_line": {
+            "description": "源码级调试信息",
+            "type": "boolean",
+            "required": {
+                "-g": {
+                    "switch": true
+                }
+            },
+            "minVersion": "V1.05.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-g_line",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xcommon": {
+            "description": "指定通用系列",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "series"
+            ],
+            "switch": "<%= series %>",
+            "format": "-Xcommon=<%= series %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xcpu": {
+            "description": "指定目标CPU",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "core"
+            ],
+            "args_valid": {
+                "core": [
+                    "g3m",
+                    "g3k",
+                    "g3mh",
+                    "g3kh",
+                    "g4mh"
+                ]
+            },
+            "switch": "<%= core %>",
+            "format": "-Xcpu=<%= core %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-P": {
+            "description": "此选项仅对输入文件执行预处理",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-P",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-S": {
+            "description": "此选项在汇编后不执行处理",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [],
+            "format": "-S",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-c": {
+            "description": "链接后不执行处理",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "<%= switch %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-D": {
+            "description": "定义一个宏",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "macro"
+            ],
+            "args_list_join": ",",
+            "format": "-D<%= macro %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-U": {
+            "description": "取消定义一个宏",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "macro"
+            ],
+            "args_list_join": ",",
+            "format": "-U<%= macro %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-I": {
+            "description": "指定一个包含头文件的目录",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "dir"
+            ],
+            "args_list_join": ",",
+            "format": "-I<%= dir %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xpreinclude": {
+            "description": "指定预包含的文件",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "file"
+            ],
+            "args_list_join": ",",
+            "format": "-Xpreinclude=<%= file %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xpreprocess": {
+            "description": "指定预处理器",
+            "type": "string",
+            "required": {
+                "-P": {
+                    "switch": true
+                }
+            },
+            "minVersion": "",
+            "args": [
+                "comment",
+                "line"
+            ],
+            "args_valid": {
+                "comment": "comment",
+                "line": "line"
+            },
+            "switch": {
+                "comment": "<%= comment %>",
+                "line": "<%= line %>"
+            },
+            "format": {
+                "comment": "-Xpreprocess=<%= comment %>",
+                "line": "-Xpreprocess=<%= line %>"
+            },
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-lang": {
+            "description": "指定C标准",
+            "type": "string",
+            "required": [],
+            "minVersion": "V1.07.00",
+            "args": [
+                "language"
+            ],
+            "args_valid": {
+                "language": [
+                    "none",
+                    "c99"
+                ]
+            },
+            "switch": "<%= language %> == 'c99'",
+            "format": "-lang=<%= language %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-strict_std": {
+            "description": "启用严格标准模式",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V1.07.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-strict_std",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xansi": {
+            "description": "指定ANSI兼容性",
+            "PEonly": false,
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "maxVersion": "V1.06.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xansi"
+        },
+        "-Xenum_type": {
+            "description": "指定枚举类型",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "enum_type"
+            ],
+            "args_valid": {
+                "enum_type": [
+                    "signedinteger",
+                    "auto"
+                ]
+            },
+            "switch": "<%= enum_type %> == 'auto'",
+            "format": "-Xenum_type=<%= enum_type %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xvolatile": {
+            "description": "此选项将外部变量指定为易失性",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xvolatile",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xcheck": {
+            "description": "此选项检查C源文件的兼容性",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "comp"
+            ],
+            "args_valid": {
+                "check_option": [
+                    "none",
+                    "xcheck"
+                ]
+            },
+            "switch": "<%= comp %> == 'xcheck'",
+            "format": "-Xcheck=shc",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xmisra2004": {
+            "description": "此选项将源代码与MISRA-C:2004规则进行比对",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "item",
+                "apply_num",
+                "ignore_num",
+                "requiredadd_num",
+                "requiredremove_num",
+                "file_name"
+            ],
+            "args_valid": {
+                "item": [
+                    "none",
+                    "all",
+                    "apply",
+                    "ignore",
+                    "required",
+                    "requiredadd",
+                    "requiredremove",
+                    "specifiesfile"
+                ],
+                "all": "",
+                "apply": "=<%= apply_num %>",
+                "ignore": "=<%= ignore_num %>",
+                "required": "",
+                "requiredadd": "required_add=<%= requiredadd_num %>",
+                "requiredremove": "required_remove=<%= requiredremove_num %>",
+                "specifiesfile": "<%= file_name %>"
+            },
+            "switch": "<%= item %> != 'none'",
+            "format": "-Xmisra2004=<%= item %>",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-Xmisra2012": {
+            "description": "此选项将源代码与MISRA-C:2012规则进行比对",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "item",
+                "apply_num",
+                "ignore_num",
+                "requiredadd_num",
+                "requiredremove_num",
+                "file_name"
+            ],
+            "args_valid": {
+                "item": [
+                    "none",
+                    "all",
+                    "apply",
+                    "ignore",
+                    "required",
+                    "requiredadd",
+                    "requiredremove",
+                    "specifiesfile"
+                ],
+                "all": "",
+                "apply": "=<%= apply_num %>",
+                "ignore": "=<%= ignore_num %>",
+                "required": "",
+                "requiredadd": "required_add=<%= requiredadd_num %>",
+                "requiredremove": "required_remove=<%= requiredremove_num %>",
+                "specifiesfile": "<%= file_name %>"
+            },
+            "switch": "<%= item %> != 'none'",
+            "format": "-Xmisra2012=<%= item %>",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-Xignore_files_misra": {
+            "description": "指定不进行MISRA检查的文件",
+            "type": "string",
+            "required": {
+                "-Xmisra2004": {
+                    "item": [
+                        "all",
+                        "apply",
+                        "ignore",
+                        "required",
+                        "requiredadd",
+                        "requiredremove",
+                        "specifiesfile"
+                    ]
+                },
+                "-Xmisra2012": {
+                    "item": [
+                        "all",
+                        "apply",
+                        "ignore",
+                        "required",
+                        "requiredadd",
+                        "requiredremove",
+                        "specifiesfile"
+                    ]
+                }
+            },
+            "minVersion": "",
+            "args": [
+                "file_list"
+            ],
+            "args_list_join": ",",
+            "switch": "<%= file_list %>",
+            "format": "-Xignore_files_misra=<%= file_list %>",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-Xcheck_language_extension": {
+            "description": "检查语言扩展",
+            "type": "boolean",
+            "required": {
+                "-Xmisra2004": {
+                    "item": [
+                        "all",
+                        "apply",
+                        "ignore",
+                        "required",
+                        "requiredadd",
+                        "requiredremove",
+                        "specifiesfile"
+                    ]
+                },
+                "-Xmisra2012": {
+                    "item": [
+                        "all",
+                        "apply",
+                        "ignore",
+                        "required",
+                        "requiredadd",
+                        "requiredremove",
+                        "specifiesfile"
+                    ]
+                }
+            },
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xcheck_language_extension",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-misra_intermodule": {
+            "description": "启用MISRA C:2012跨模块检查",
+            "type": "boolean",
+            "required": [
+                "-Xmisra2004",
+                "-Xmisra2012"
+            ],
+            "minVersion": "V2.01.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-misra_intermodule=${PROJECT_NAME}.mi",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-Xuse_fp16": {
+            "description": "启用对半精度浮点数的支持",
+            "type": "boolean",
+            "required": {
+                "-strict_std": true,
+                "-Xcpu": "g3k",
+                "-Xfloat": "soft",
+                "-Xround": "zero"
+            },
+            "minVersion": "V1.05.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xuse_fp16",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-Xcharacter_set": {
+            "description": "指定字符集",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "charset"
+            ],
+            "args_valid": {
+                "charset": [
+                    "auto",
+                    "sjis",
+                    "eucjp",
+                    "utf8",
+                    "big5",
+                    "gb2312"
+                ],
+                "eucjp": "euc-jp"
+            },
+            "switch": "<%= charset %> != 'auto'",
+            "format": "-Xcharacter_set=<%= charset %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-O": {
+            "description": "指定优化级别",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "level"
+            ],
+            "args_valid": {
+                "level": [
+                    "advanceddebug",
+                    "default",
+                    "advancedsize",
+                    "advancedspeed"
+                ],
+                "advanceddebug": "nothing",
+                "advancedsize": "size",
+                "advancedspeed": "speed"
+            },
+            "switch": "<%= level %> != 'default'",
+            "format": "-O<%= level %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Ounroll": {
+            "description": "禁止循环展开",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-Ounroll=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Oinline": {
+            "description": "指定内联函数的处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "fittooptimization",
+                    "onlyspecifiedfunctions",
+                    "autodetect",
+                    "autodetectcodesize",
+                    "none"
+                ],
+                "onlyspecifiedfunctions": "1",
+                "autodetect": "2",
+                "autodetectcodesize": "3",
+                "none": "0"
+            },
+            "switch": "<%= value %> != 'fittooptimization'",
+            "format": "-Oinline=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Oinline_size": {
+            "description": "指定内联函数的最大代码大小",
+            "type": "string",
+            "required": [
+                {
+                    "-Oinline": "autodetect"
+                },
+                {
+                    "-O": "advancedspeed"
+                }
+            ],
+            "minVersion": "",
+            "args": [
+                "size"
+            ],
+            "switch": "<%= size %>",
+            "format": "-Oinline_size=<%= size %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Oinline_init": {
+            "description": "指定内联函数的初始化处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "V1.07.00",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "oinlineiniton",
+                    "oinlineinitoff"
+                ],
+                "oinlineiniton": "on",
+                "oinlineinitoff": "off"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Oinline_init=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Odelete_static_func": {
+            "description": "删除未被调用的静态函数",
+            "type": "string",
+            "required": {
+                "-O": "advanceddebug"
+            },
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "odeletestaticfuncon",
+                    "odeletestaticfuncoff"
+                ],
+                "odeletestaticfuncon": "on",
+                "odeletestaticfuncoff": "off"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Odelete_static_func=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Opipeline": {
+            "description": "启用指令流水线优化",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "opipelineon",
+                    "opipelineoff"
+                ],
+                "opipelineon": "on",
+                "opipelineoff": "off"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Opipeline=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Otail_call": {
+            "description": "启用尾调用优化",
+            "type": "string",
+            "required": [
+                {
+                    "-O": "advancedspeed"
+                },
+                {
+                    "-O": "advancedsize"
+                }
+            ],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "otailcallon",
+                    "otailcalloff"
+                ],
+                "otailcallon": "on",
+                "otailcalloff": "off"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Otail_call=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-map": {
+            "description": "生成优化报告",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "omap",
+                    "osmap"
+                ],
+                "omap": "-Omap=${PROJECT_NAME}.bls",
+                "omapall": "-Osmap"
+            },
+            "switch": "<%= value %>",
+            "format": "<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Oalign": {
+            "description": "指定数据对齐方式",
+            "type": "string",
+            "required": [
+                {
+                    "-O": "advancedspeed"
+                },
+                {
+                    "-O": "advancedsize"
+                },
+                {
+                    "-stuff": false
+                }
+            ],
+            "minVersion": "V2.03.00",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "oalign",
+                    "oalignoff"
+                ],
+                "oalign": "on",
+                "oalignoff": "off"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Oalign=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-intermodule": {
+            "description": "启用跨模块优化",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "level1",
+                    "level2",
+                    "level3"
+                ],
+                "level1": "-Xintermodule",
+                "level2": "-Xmerge_files -Xintermodule",
+                "level3": "-Xwhole_program"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xinline_strcpy": {
+            "description": "启用strcpy函数的内联优化",
+            "type": "boolean",
+            "required": {
+                "-Xpack": {
+                    "value": "none"
+                }
+            },
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xinline_strcpy",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xmerge_string": {
+            "description": "启用字符串合并优化",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xmerge_string",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xalias": {
+            "description": "启用别名分析",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xalias=ansi",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-library": {
+            "description": "指定库函数的处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "libraryintrinsic"
+                ],
+                "libraryintrinsic": "intrinsic"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-library=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-goptimize": {
+            "description": "生成优化调试信息",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-goptimize",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xpack": {
+            "description": "启用结构体紧凑优化",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "byte1",
+                    "byte2",
+                    "byte4"
+                ],
+                "byte1": "1",
+                "byte2": "2",
+                "byte4": "4"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Xpack=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xbit_order": {
+            "description": "指定位域的位序",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "left"
+                ]
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Xbit_order=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xpass_source": {
+            "description": "将源代码传递给后端",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xpass_source",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xswitch": {
+            "description": "启用switch语句优化",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "ifelsestatement",
+                    "binarysearch",
+                    "tablejump"
+                ],
+                "ifelsestatement": "ifelse",
+                "binarysearch": "binary",
+                "tablejump": "table"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Xswitch=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xreg_mode": {
+            "description": "指定寄存器变量的处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "registermode32",
+                    "registermode22",
+                    "registermodecommon"
+                ],
+                "registermode22": "22",
+                "registermodecommon": "common"
+            },
+            "switch": "<%= value %> != 'registermode32'",
+            "format": "-Xreg_mode=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xreserve_r2": {
+            "description": "保留R2寄存器",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xreserve_r2",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-r4": {
+            "description": "r4寄存器处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "V1.07.00",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "r4"
+                ],
+                "r4": "none"
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-r4=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xep": {
+            "description": "ep寄存器处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none"
+                ]
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Xep=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xfloat": {
+            "description": "float处理方式",
+            "type": "string",
+            "required": {
+                "-Xcpu": {
+                    "core": [
+                        "g3m",
+                        "g3mh",
+                        "g3kh",
+                        "g4mh"
+                    ]
+                }
+            },
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "none",
+                    "soft",
+                    "fpu"
+                ]
+            },
+            "switch": "<%= value %> != 'none'",
+            "format": "-Xfloat=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xfxu": {
+            "description": "fxu寄存器处理方式",
+            "type": "boolean",
+            "required": {
+                "-Xcpu": {
+                    "core": "g4mh"
+                }
+            },
+            "minVersion": "V2.00.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xfxu=on",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xcall_jump": {
+            "description": "启用函数调用跳转优化",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "CallJump"
+                ]
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "-Xcall_jump=32",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xfar_jump": {
+            "description": "启用远跳转输出",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-Xfar_jump=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xdiv": {
+            "description": "指定除法处理方式",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xdiv",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xcheck_div_ov": {
+            "description": "启用除法溢出检查",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch",
+                "value"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xcheck_div_ov=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-relaxed_math": {
+            "description": "此选项生成浮点计算代码，效率优先于严格性。",
+            "type": "string",
+            "required": [],
+            "minVersion": "V2.00.00",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "COptionRelaxedMath"
+                ]
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "-relaxed_math",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xuse_fmaf": {
+            "description": "此选项生成乘法-加法操作指令。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xuse_fmaf",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-use_recipf": {
+            "description": "此选项生成recipf指令",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V2.00.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-use_recipf",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-approximate": {
+            "description": "此选项将浮点运算替换为等效的近似计算。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V2.00.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-approximate",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xunordered_cmpf": {
+            "description": "此选项用于检测浮点比较中的无效操作异常。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xunordered_cmpf",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xmulti_level": {
+            "description": "此选项指定多核程序的生成。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "Level0",
+                    "Level1"
+                ],
+                "Level1": "1"
+            },
+            "switch": "<%= value %> != 'Level0'",
+            "format": "-Xmulti_level=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xdbl_size": {
+            "description": "此选项指定double和longdouble类型的数据大小。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "SinglePrecision",
+                    "DoublePrecision"
+                ],
+                "SinglePrecision": "4"
+            },
+            "switch": "<%= value %> != 'DoublePrecision'",
+            "format": "-Xdbl_size=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xround": {
+            "description": "此选项指定浮点常量的四舍五入模式。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "Nearest",
+                    "Zero"
+                ],
+                "Zero": "zero"
+            },
+            "switch": "<%= value %> != 'Nearest'",
+            "format": "-Xround=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xalign4": {
+            "description": "此选项指定分支目标地址的对齐值。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "Align2",
+                    "Align4",
+                    "Align4Loop",
+                    "Align4Innermostloop",
+                    "Align4All"
+                ],
+                "Align4": "",
+                "Align4Loop": "=loop",
+                "Align4All": "=all",
+                "Align4Innermostloop": "=innermostloop"
+            },
+            "switch": "<%= value %> != 'Align2'",
+            "format": "-Xalign4<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-Xstack_protector": {
+            "description": "此选项指定生成用于检测堆栈溢出的代码。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value",
+                "number"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "Yes",
+                    "YesAll"
+                ],
+                "Yes": "-Xstack_protector",
+                "YesAll": "-Xstack_protector_all"
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "<%= value %>=<%= number %>",
+            "PEonly": true,
+            "maxVersion": ""
+        },
+        "-Xsection": {
+            "description": "此选项指定数据的默认部分。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "R0_disp16",
+                    "R0_disp23",
+                    "Gp_disp16",
+                    "Gp_disp23",
+                    "Ep_disp16",
+                    "Ep_disp23"
+                ],
+                "R0_disp16": "data=r0_disp16",
+                "R0_disp23": "data=r0_disp23",
+                "Gp_disp16": "data=gp_disp16",
+                "Gp_disp23": "data=gp_disp23",
+                "Ep_disp16": "data=ep_disp16",
+                "Ep_disp23": "data=ep_disp23"
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "-Xsection=<%= value %>",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-stuff_bss": {
+            "description": "此选项根据对齐数将变量分配到不同部分。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V2.03.00",
+            "args": [
+                "bss"
+            ],
+            "switch": "<%= bss %>",
+            "format": "-stuff=bss",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-stuff_data": {
+            "description": "此选项根据对齐数将变量分配到不同部分。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V2.03.00",
+            "args": [
+                "data"
+            ],
+            "switch": "<%= data %>",
+            "format": "-stuff=data",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-stuff_const": {
+            "description": "此选项根据对齐数将变量分配到不同部分。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V2.03.00",
+            "args": [
+                "const"
+            ],
+            "switch": "<%= const %>",
+            "format": "-stuff=const",
+            "PEonly": false,
+            "maxVersion": ""
+        },
+        "-store_reg": {
+            "description": "此选项控制对控制寄存器的写入检测或寄存器间同步处理的插入。",
+            "type": "string",
+            "required": [],
+            "minVersion": "V1.06.00",
+            "maxVersion": "",
+            "PEonly": true,
+            "args": [
+                "reg"
+            ],
+            "args_valid": {
+                "reg": [
+                    "None",
+                    "Sync",
+                    "List",
+                    "ListAll",
+                    "Ignore"
+                ],
+                "Sync": "sync",
+                "List": "list",
+                "ListAll": "list_all",
+                "Ignore": "ignore"
+            },
+            "switch": "<%= reg %> != 'None'",
+            "format": "-store_reg=<%= reg %>"
+        },
+        "-control_flow_integrity": {
+            "description": "此选项生成用于检测非法间接函数调用的代码。",
+            "type": "string",
+            "required": [],
+            "minVersion": "V1.07.00",
+            "maxVersion": "",
+            "PEonly": true,
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "YesAll"
+                ]
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "-control_flow_integrity"
+        },
+        "-pic": {
+            "description": "此选项启用PIC功能。",
+            "type": "boolean",
+            "required": [],
+            "PEonly": false,
+            "maxVersion": "",
+            "minVersion": "V1.07.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-pic -pirod"
+        },
+        "-pid": {
+            "description": "此选项启用PID功能。",
+            "type": "boolean",
+            "required": [],
+            "PEonly": false,
+            "maxVersion": "",
+            "minVersion": "V1.07.00",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-pid"
+        },
+        "-Xcref": {
+            "description": "此选项输出静态分析信息文件。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "maxVersion": "",
+            "PEonly": false,
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xcref=${PROJECT_NAME}.cref"
+        },
+        "-Xerror_file": {
+            "description": "此选项将错误消息输出到文件。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "maxVersion": "",
+            "PEonly": false,
+            "args": [
+                "switch",
+                "file_name"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xerror_file=<%= file_name %>"
+        },
+        "-Xno_warning": {
+            "description": "此选项会抑制指定数量的警告消息输出。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "maxVersion": "",
+            "PEonly": false,
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-Xno_warning=<%= value %>"
+        },
+        "-change_message": {
+            "description": "此选项将指定的警告信息更改为错误信息。",
+            "type": "string",
+            "required": [],
+            "minVersion": "V1.07.00",
+            "maxVersion": "",
+            "PEonly": false,
+            "args": [
+                "value",
+                "msg_id"
+            ],
+            "args_valid": {
+                "msg_id": [
+                    "No",
+                    "All",
+                    "Specified"
+                ],
+                "All": "-change_message=error",
+                "Specified": "-change_message=error=<%= msg_id %>"
+            },
+            "switch": "<%= value %> != 'No'",
+            "format": "<%= value %>"
+        },
+        "-Xasm_option_asm_for_jump": {
+            "description": "此选项设置汇编器选项。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "maxVersion": "",
+            "PEonly": false,
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xasm_option=-Xasm_far_jump"
+        },
+        "-Xasm_option_prn_path": {
+            "description": "此选项设置汇编器选项。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "maxVersion": "",
+            "PEonly": false,
+            "args": [
+                "switch",
+                "path"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-Xasm_option=-Xprn_path=<%= path %>"
+        }
+    },
+    "LinkOptions": {
+        "-cpu": {
+            "description": "此选项检查段所分配地址的一致性。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "value"
+            ],
+            "switch": "<%= switch %> && <%= value %>",
+            "format": "-cpu=<%= value %>"
+        },
+        "-debug": {
+            "description": "此选项启用调试信息。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "Debug",
+                    "NoDebug"
+                ],
+                "Debug": "-debug",
+                "NoDebug": "-nodebug"
+            },
+            "switch": "<%= value %>",
+            "format": "<%= value %>"
+        },
+        "-compress": {
+            "description": "此选项启用压缩。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "False",
+                    "True"
+                ],
+                "False": "-nocompress",
+                "True": "-compress"
+            },
+            "switch": "<%= value %>",
+            "format": "<%= value %>"
+        },
+        "-hide": {
+            "description": "此选项从输出文件中删除局部符号名称信息。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-hide"
+        },
+        "-entry": {
+            "description": "此选项指定执行起始地址。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "value"
+            ],
+            "switch": "<%= switch %> && <%= value %>",
+            "format": "-entry=<%= value %>"
+        },
+        "-input": {
+            "description": "此选项指定输入文件。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_list_join": " ",
+            "switch": "<%= value %>",
+            "format": "-input=<%= value %>"
+        },
+        "-library": {
+            "description": "此选项指定输入库文件。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_list_join": ",",
+            "switch": "<%= value %>",
+            "format": "-library=<%= value %>"
+        },
+        "-library_std": {
+            "description": "指定标准库函数的处理方式",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "NotUse",
+                    "Use",
+                    "UseCompatibleV101"
+                ]
+            },
+            "switch": "",
+            "format": ""
+        },
+        "-library_std_math": {
+            "description": "指定标准库数学函数的处理方式",
+            "type": "boolean",
+            "required": {
+                "-library_std": {
+                    "value": "Use"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-library=v850e3v5\\${FLOAT_MODE}.lib"
+        },
+        "-library_std_sec": {
+            "description": "指定标准库内存安全的处理方式",
+            "type": "string",
+            "required": {
+                "-library_std": {
+                    "value": "Use"
+                },
+                "library_std_math": {
+                    "switch": true
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "False",
+                    "True"
+                ],
+                "False": "",
+                "True": "secure\\"
+            },
+            "switch": "<%= value %>",
+            "format": "-library=v850e3v5\\<%= value %>libmalloc.lib"
+        },
+        "-library_compatible_c": {
+            "description": "指定标准库数学函数的处理方式",
+            "type": "boolean",
+            "required": {
+                "-library_std": {
+                    "value": "UseCompatibleV101"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-library=v850e3v5\\libc.lib"
+        },
+        "-library_compatible_m": {
+            "description": "指定标准库数学函数的处理方式",
+            "type": "boolean",
+            "required": {
+                "-library_std": {
+                    "value": "UseCompatibleV101"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-library=v850e3v5\\libm.lib"
+        },
+        "-library_compatible_mf": {
+            "description": "指定标准库数学函数的处理方式",
+            "type": "boolean",
+            "required": {
+                "-library_std": {
+                    "value": "UseCompatibleV101"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-library=v850e3v5\\libmf.lib"
+        },
+        "-library_setjmp": {
+            "description": "指定函数跳转的处理方式",
+            "type": "boolean",
+            "required": {
+                "-library_std": {
+                    "value": [
+                        "Use",
+                        "UseCompatibleV101"
+                    ]
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-library=v850e3v5\\libsetjmp.lib"
+        },
+        "-list": {
+            "description": "此选项指定输出文件。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "List",
+                    "ListShowAll",
+                    "ListShow"
+                ],
+                "List": "-list=${PROJECT_NAME}.map",
+                "ListShowAll": "-list=${PROJECT_NAME}.map -show=all",
+                "ListShow": "-list=${PROJECT_NAME}.map -show"
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "<%= value %>"
+        },
+        "-list_show_symbol": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=symbol"
+        },
+        "-list_show_reference": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=reference"
+        },
+        "-list_show_section": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=section"
+        },
+        "-list_show_xreference": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=xreference"
+        },
+        "-list_show_total_size": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=total_size"
+        },
+        "-list_show_struct": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=struct"
+        },
+        "-list_show_relocation_attribute": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "V1.06.00",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=relocation_attribute"
+        },
+        "-list_show_cfi": {
+            "description": "此选项指定输出文件。",
+            "type": "switch",
+            "required": {
+                "-list": {
+                    "value": "List"
+                }
+            },
+            "minVersion": "V1.07.00",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-show=cfi"
+        },
+        "-start": {
+            "description": "此选项指定段的起始地址。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-start=<%= value %>"
+        },
+        "-fsymbol": {
+            "description": "此选项输出外部定义的符号到符号地址文件。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-fsymbol=<%= value %>"
+        },
+        "-aligned_section": {
+            "description": "此选项将节的对齐方式更改为16字节。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-aligned_section=<%= value %>"
+        },
+        "-rom": {
+            "description": "此选项指定将ROM中的符号映射到RAM的区域。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %>",
+            "format": "-rom=<%= value %>"
+        },
+        "-message": {
+            "description": "此选项会输出信息消息。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "value"
+            ],
+            "args_valid": {
+                "switch": [
+                    "True",
+                    "False"
+                ],
+                "True": "-message",
+                "False": "-nomessage=<%= value %>"
+            },
+            "switch": "",
+            "format": "<%= switch %>"
+        },
+        "-msg_unused": {
+            "description": "此选项通知用户外部定义的符号未被引用。",
+            "type": "boolean",
+            "required": {
+                "-message": {
+                    "switch": "True"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-msg_unused"
+        },
+        "-change_message_info": {
+            "description": "此选项更改信息、警告和错误消息的类型。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value",
+                "number"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "SpecifiesNumber",
+                    "All"
+                ],
+                "SpecifiesNumber": "-change_message=information=<%= number %>",
+                "All": "-change_message=information"
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "<%= value %>"
+        },
+        "-change_message_err": {
+            "description": "此选项更改信息、警告和错误消息的类型。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value",
+                "number"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "SpecifiesNumber",
+                    "All"
+                ],
+                "SpecifiesNumber": "-change_message=error=<%= number %>",
+                "All": "-change_message=error"
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "<%= value %>"
+        },
+        "-stack": {
+            "description": "此选项输出堆栈信息文件。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-stack"
+        },
+        "-memory": {
+            "description": "此选项指定链接期间占用的内存大小。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "args_valid": {
+                "switch": [
+                    "True",
+                    "False"
+                ],
+                "True": "-memory=low",
+                "False": "-memory=higt"
+            },
+            "switch": "<%= switch %>",
+            "format": "<%= switch %>"
+        },
+        "-total_size": {
+            "description": "此选项在链接到标准错误输出后显示段落的总大小。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-total_size"
+        },
+        "-logo": {
+            "description": "此选项输出版权通知。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "args_valid": {
+                "switch": [
+                    "True",
+                    "False"
+                ],
+                "True": "-logo",
+                "False": "-nologo"
+            },
+            "switch": "<%= switch %>",
+            "format": "<%= switch %>"
+        },
+        "-map": {
+            "description": "此选项在链接到标准错误输出后显示段落的总大小。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-map=${PROJECT_NAME}.bls"
+        },
+        "-output": {
+            "description": "此选项指定默认输出格式。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "file",
+                "folder"
+            ],
+            "switch": "<%= file %> && <%= folder %>",
+            "format": "-output=<%= folder %>\\<%= file %>"
+        },
+        "-allow_duplicate_module_name": {
+            "description": "此选项允许重复模块名称。",
+            "type": "boolean",
+            "required": [],
+            "minVersion": "V2.02.00",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-allow_duplicate_module_name"
+        }
+    },
+    "HexoutputOptions": {
+        "-output_default_nb": {
+            "description": "此选项指定默认输出格式。",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": [
+                        "Stype",
+                        "Hexadecimal"
+                    ]
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "file",
+                "address",
+                "folder"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-output=<%= folder %>\\<%= file %>/<%= address %>"
+        },
+        "-output_default_b": {
+            "description": "此选项指定默认输出格式。",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": "Binary"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "file",
+                "folder"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-output=<%= folder %>\\<%= file %>"
+        },
+        "-output_division": {
+            "description": "此选项指定默认输出格式。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_list_join": " -output=",
+            "switch": "<%= value %>",
+            "format": "-output=<%= value %>"
+        },
+        "-form": {
+            "description": "此选项指定输出格式。",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "Binary",
+                    "Stype",
+                    "Hexadecimal",
+                    "LibraryU",
+                    "LibraryS"
+                ],
+                "Binary": "binary",
+                "Stype": "stype",
+                "Hexadecimal": "hexadecimal",
+                "LibraryS": "library=s",
+                "LibraryU": "library=u"
+            },
+            "switch": "<%= value %>",
+            "format": "-form=<%= value %>"
+        },
+        "-record_h": {
+            "description": "此选项指定要输出的数据记录的大小。",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": "Hexadecimal"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %> != 'None'",
+            "format": "-record=<%= value %>"
+        },
+        "-record_s": {
+            "description": "此选项指定要输出的数据记录的大小。",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": "Stype"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "switch": "<%= value %> != 'None'",
+            "format": "-record=<%= value %>"
+        },
+        "-fix_record_length_and_align": {
+            "description": "固定输出数据记录的格式",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": [
+                        "Stype",
+                        "Hexadecimal"
+                    ]
+                }
+            },
+            "minVersion": "V1.07.00",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "value"
+            ],
+            "switch": "<%= switch %> && <%= value %>",
+            "format": "-fix_record_length_and_align=<%= value %>"
+        },
+        "-byte_count": {
+            "description": "此选项指定数据记录的最大字节数。",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": [
+                        "Stype",
+                        "Hexadecimal"
+                    ]
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "value"
+            ],
+            "switch": "<%= switch %> && <%= value %>",
+            "format": "-byte_count=<%= value %>"
+        },
+        "-end_record": {
+            "description": "此选项指定结束记录",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": "Stype"
+                }
+            },
+            "minVersion": "V1.06.00",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "value"
+            ],
+            "args_valid": {
+                "value": [
+                    "None",
+                    "S9",
+                    "S8",
+                    "S7"
+                ]
+            },
+            "switch": "<%= value %> != 'None'",
+            "format": "-end_record=<%= value %>"
+        },
+        "-s9": {
+            "description": "此选项在末尾输出S9记录。",
+            "type": "string",
+            "required": {
+                "-form": {
+                    "value": "Stype"
+                }
+            },
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch"
+            ],
+            "switch": "<%= switch %>",
+            "format": "-s9"
+        },
+        "-crc": {
+            "description": "This option outputs the CRC code",
+            "type": "string",
+            "required": [],
+            "minVersion": "",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "switch",
+                "out_address",
+                "range",
+                "type",
+                "ending",
+                "initial_value",
+                "out_szie"
+            ],
+            "args_valid": {
+                "type": [
+                    "Msb",
+                    "CcittMsb",
+                    "MsbLittle2",
+                    "Ethernet",
+                    "Ccitt",
+                    "Lsb",
+                    "_16",
+                    "Sent"
+                ],
+                "Sent": "SENT-MSB",
+                "_16": "16",
+                "Lsb": "16-CCITT-LSB",
+                "Ccitt": "CCITT",
+                "Ethernet": "",
+                "MsbLittle2": "16-CCITT-MSB-LITTLE-2",
+                "CcittMsb": "16-CCITT-MSB",
+                "Msb": "16-CCITT-MSB-LITTLE-4",
+                "ending": [
+                    "Little",
+                    "Big"
+                ],
+                "Little": "LITTLE",
+                "Big": "BIG"
+            },
+            "switch": "<%= switch %>",
+            "format": "-crc=<%= out_address %>=<%= range %>/<%= type %>(<%= initial_value %>):<%= ending %>-<%= out_size %>-0"
+        },
+        "-verbose": {
+            "description": "This option displays detailed information in the standard error output.",
+            "type": "string",
+            "required": [],
+            "minVersion": "V2.03.00",
+            "PEonly": false,
+            "maxVersion": "",
+            "args": [
+                "verbose_crc"
+            ],
+            "switch": "<%= verbose_crc %>",
+            "format": "-verbose=crc"
+        }
+    }
+}
