@@ -2443,7 +2443,7 @@
                 "type",
                 "ending",
                 "initial_value",
-                "out_szie"
+                "out_size"
             ],
             "args_valid": {
                 "type": [
