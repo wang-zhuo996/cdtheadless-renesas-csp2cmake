@@ -1,5 +1,5 @@
-const cli_parser_rules = require("./cli_command_format.json");
 const ejs = require("ejs");
+const cli_parser_rules = require("./cli_command_format.json");
 
 class RenesasCliOption {
   constructor(data) {
@@ -14,8 +14,19 @@ class RenesasCliOption {
     this.switch = data.switch;
     this.args_valid = data.args_valid;
     this.args_list_join = data.args_list_join;
-    this.compiledFormatString();
+    // this.compiledFormatString();
     this.input_args = [];
+
+    try {
+      this.compiled_format = ejs.compile(this.format);
+    } catch (error) {
+      this.compiled_format = false;
+    }
+    try {
+      this.compiled_switch = ejs.compile(this.switch);
+    } catch (error) {
+      this.compiled_switch = false;
+    }
   }
 
   input(arg, value) {
@@ -23,12 +34,9 @@ class RenesasCliOption {
     else throw new Error("Invalid argument");
   }
 
-  compiledFormatString() {
-    this.compiled_format = ejs.compile(this.format);
-    this.compiled_switch = ejs.compile(this.switch);
-  }
   switchCheck() {
-    return eval(this.compiled_switch(this.input_args));
+    if (this.compiled_switch)
+      return eval(this.compiled_switch(this.input_args));
   }
 }
 
@@ -43,9 +51,9 @@ class RenesasCliMaker {
   }
   set(cli_name, option_value) {
     const option = this.get(cli_name);
-    Object.entries(option_value).forEach(
-      ([key, value]) => option.input(key, value)
-    )
+    Object.entries(option_value).forEach(([key, value]) =>
+      option.input(key, value),
+    );
   }
   get(cli_name) {
     return this.options.get(cli_name);

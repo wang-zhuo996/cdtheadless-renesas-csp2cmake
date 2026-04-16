@@ -1,22 +1,22 @@
 {
     "Compile": {
         "GeneralOptionXobjPath": {
-            "cli_option": "-Xobj-path",
+            "cli_option": "-Xobj_path",
             "arg": "path",
             "type": "string-env"
         },
         "COptionXasmPath": {
-            "cli_option": "-Xasm-path",
+            "cli_option": "-Xasm_path",
             "arg": "switch",
             "type": "boolean"
         },
         "COptionXasmPathValue": {
-            "cli_option": "-Xasm-path",
+            "cli_option": "-Xasm_path",
             "arg": "path",
             "type": "string-env"
         },
         "COptionXprepPath": {
-            "cli_option": "-Xprep-path",
+            "cli_option": "-Xprep_path",
             "arg": "path",
             "type": "string-env"
         },
@@ -94,7 +94,7 @@
             "rule": "lowercase"
         },
         "COptionStrictStd": {
-            "cli_option": "-strict-std",
+            "cli_option": "-strict_std",
             "arg": "switch",
             "type": "boolean"
         },
@@ -192,7 +192,7 @@
             "type": "boolean"
         },
         "COptionMisraIntermodule": {
-            "cli_option": "-misra-intermodule",
+            "cli_option": "-misra_intermodule",
             "arg": "switch",
             "type": "boolean"
         },
@@ -373,7 +373,7 @@
             "type": "string"
         },
         "COptionRelaxedMath": {
-            "cli_option": "-relaxed-math",
+            "cli_option": "-relaxed_math",
             "arg": "value",
             "type": "string"
         },
@@ -794,7 +794,7 @@
         "HexOptionOutputFolder": {
             "cli_option": [
                 "-output_default_nb",
-                "output_default_b"
+                "-output_default_b"
             ],
             "arg": "folder",
             "type": "string-env"
@@ -802,7 +802,7 @@
         "HexOptionOutputFileName": {
             "cli_option": [
                 "-output_default_nb",
-                "output_default_b"
+                "-output_default_b"
             ],
             "arg": "file",
             "type": "string-env"
@@ -810,7 +810,7 @@
         "HexOptionOutput": {
             "cli_option": [
                 "-output_default_nb",
-                "output_default_b"
+                "-output_default_b"
             ],
             "arg": "switch",
             "type": "boolean"
