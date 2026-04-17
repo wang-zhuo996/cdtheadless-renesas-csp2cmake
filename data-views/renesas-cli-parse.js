@@ -1,5 +1,5 @@
 const vscode = require("vscode");
-const xml2js = require("xml2js");
+// const xml2js = require("xml2js");
 const ejs = require("ejs");
 const fs = require("fs");
 const path = require("path");
@@ -7,9 +7,9 @@ const mtpj2cli = require("./mtpj2cli_parse.json");
 const cli_maker = require("./renesas-cli-maker");
 
 const cli_maker_map = cli_maker.cli_maker;
-const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
-const Expanded = vscode.TreeItemCollapsibleState.Expanded;
-const NoCollapsed = vscode.TreeItemCollapsibleState.None;
+// const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
+// const Expanded = vscode.TreeItemCollapsibleState.Expanded;
+// const NoCollapsed = vscode.TreeItemCollapsibleState.None;
 
 let extensionContext = null;
 
@@ -27,22 +27,22 @@ function replaceVars(str, variables) {
   });
 }
 
-class RenesasOptionItem extends vscode.TreeItem {
-  /**
-   * @param {object} src  { guid, type }
-   */
-  constructor(name, is_setting, description) {
-    super(name, NoCollapsed);
-    this.name = name;
-    this.contextValue = "optionItem";
-    this.tooltip = `${description}`;
-    if (is_setting) {
-      this.iconPath = new vscode.ThemeIcon("pass");
-    } else {
-      this.iconPath = new vscode.ThemeIcon("error");
-    }
-  }
-}
+// class RenesasOptionItem extends vscode.TreeItem {
+//   /**
+//    * @param {object} src  { guid, type }
+//    */
+//   constructor(name, is_setting, description) {
+//     super(name, NoCollapsed);
+//     this.name = name;
+//     this.contextValue = "optionItem";
+//     this.tooltip = `${description}`;
+//     if (is_setting) {
+//       this.iconPath = new vscode.ThemeIcon("pass");
+//     } else {
+//       this.iconPath = new vscode.ThemeIcon("error");
+//     }
+//   }
+// }
 
 class RenesasOptionFilter {
   constructor(type) {

@@ -22,13 +22,13 @@ class RenesasCliOption {
             this.compiled_format = ejs.compile(this.format);
         } catch (error) {
             this.compiled_format = false;
-            console.log("Error in format string for FORMAT", this.key, this.format, this.description);
+            console.log("Error in format string for FORMAT", this.key, this.format, this.description, error);
         }
         try {
             this.compiled_switch = ejs.compile(this.switch);
         } catch (error) {
             this.compiled_switch = false;
-            console.log("Error in format string for SWITCH ", this.key, this.switch, this.description);
+            console.log("Error in format string for SWITCH ", this.key, this.switch, this.description, error);
         }
     }
 
@@ -100,7 +100,7 @@ class RenesasCliOption {
                 try {
                     this.final_args[key] = ejs.render(this.final_args[key], this.final_args);
                 } catch (error) {
-                    console.log("Error in format string for ", this.key, key, this.final_args[key], " for ", this.final_args);
+                    console.log("Error in format string for ", this.key, key, this.final_args[key], " for ", this.final_args, error);
                 }
             }
         }
@@ -146,7 +146,7 @@ class RenesasCliMaker {
 
     clear() {
         this.activet_options = [];
-        for (const [key, value] of this.options) {
+        for (const value of this.options.values()) {
             value.clear();
         }
     }
@@ -165,6 +165,7 @@ class RenesasCliMaker {
             return `rh${fpu_flag === 'none' || fpu_flag === 'soft' ? 's' : 'f'}${dbl_size_flag ? '4' : '8'}${round_flag ? 'z' : 'n'}`
         }
         catch(error){
+            console.log(error);
             return ''
         }
     }

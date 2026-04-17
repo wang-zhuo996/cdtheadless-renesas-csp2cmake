@@ -117,7 +117,7 @@ function parseMtpjFile(filePath) {
 // ─────────────────────────────────────────────────────────────
 // TreeItem classes
 // ─────────────────────────────────────────────────────────────
-const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
+// const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
 const Expanded = vscode.TreeItemCollapsibleState.Expanded;
 const NoCollapsed = vscode.TreeItemCollapsibleState.None;
 
