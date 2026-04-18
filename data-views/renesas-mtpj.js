@@ -75,7 +75,7 @@ function parseMtpjFile(filePath) {
     );
     const projectType =
       (instance["GeneralOptionOutput-" + currentBuildModeIndex]?.[0] ?? "") ===
-      "LibraryFile"
+        "LibraryFile"
         ? "lib"
         : "exe";
 
@@ -117,7 +117,7 @@ function parseMtpjFile(filePath) {
 // ─────────────────────────────────────────────────────────────
 // TreeItem classes
 // ─────────────────────────────────────────────────────────────
-// const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
+const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
 const Expanded = vscode.TreeItemCollapsibleState.Expanded;
 const NoCollapsed = vscode.TreeItemCollapsibleState.None;
 
@@ -152,12 +152,9 @@ class RenesasBuildModeItem extends vscode.TreeItem {
    * @param {object} mode  { name, encoded, index }
    * @param {string} projectName
    */
-  constructor(mode, projectName, haschildren = false) {
-    if (haschildren) {
-      super(mode.name, Expanded);
-    } else {
-      super(mode.name, NoCollapsed);
-    }
+  constructor(mode, projectName, haschildren = NoCollapsed) {
+    
+    super(mode.name, haschildren);
     this.mode = mode;
     this.projectName = projectName;
     this.contextValue = "buildModeItem";
@@ -219,12 +216,12 @@ class RenesasProjectTreeDataProvider {
       // Second level: build modes
       if (element instanceof RenesasProjectItem) {
         const items = element.data.buildModes.map(
-          (m) => new RenesasBuildModeItem(m, element.data.name, true),
+          (m) => new RenesasBuildModeItem(m, element.data.name, NoCollapsed),
         );
         return items;
       }
       if (element instanceof RenesasBuildModeItem) {
-        if (currentProjectParser.data.currentBuildMode == element.mode.name) {
+        if (currentProjectParser.data?.currentBuildMode == element.mode.name) {
           return currentProjectParser.projectTypeMap[
             currentProjectParser.data.projectType
           ].map(
@@ -242,7 +239,7 @@ class RenesasProjectTreeDataProvider {
             currentProjectParser.cli_maker[element.name].activet_options;
           const options = currentProjectParser.cli_maker[element.name].options;
           let res = [];
-          options.forEach((value,key) => {
+          options.forEach((value, key) => {
             if (activeOptions.includes(key)) {
               res.push(new RenesasOptionItem(key, value, true));
             } else {
@@ -256,7 +253,7 @@ class RenesasProjectTreeDataProvider {
     }
     // Root: return project list
 
-    if (!currentProject) {
+    if (!currentProject && !element) {
       return [];
     } else if (!(currentProject instanceof RenesasProjectItem)) {
       return [new RenesasProjectItem(currentProject, "", true)];
@@ -299,12 +296,11 @@ class RenesasBuildModeTreeDataProvider {
       // Root: single node for the current project
       const result = [];
       for (const proj of globalMtpjConfig) {
-        result.push(new RenesasProjectItem(proj,"",true));
+        result.push(new RenesasProjectItem(proj, "", true));
       }
-      if (result.length === 1) {
-        currentProject = result[0];
-        if (projectProvider) projectProvider.refresh();
-      }
+
+      if (projectProvider) projectProvider.refresh();
+
       return result;
     }
 
@@ -340,6 +336,7 @@ async function refreshAll() {
   }
 
   if (buildModeProvider) buildModeProvider.refresh();
+  if (projectProvider) projectProvider.refresh();
   return globalMtpjConfig;
 }
 
