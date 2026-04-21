@@ -255,7 +255,7 @@ class RenesasMtpjParser {
 
       if (read_template) {
         const write_template = ejs.render(read_template, ejs_value);
-        console.log(write_template);
+        // console.log(write_template);
         fs.writeFileSync(path.join(workspace, file), write_template);
       }
     }

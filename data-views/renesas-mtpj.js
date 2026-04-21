@@ -212,7 +212,7 @@ class RenesasProjectTreeDataProvider {
       // Second level: build modes
       if (element instanceof RenesasProjectItem) {
         const items = element.data.buildModes.map(
-          (m) => new RenesasBuildModeItem(m, element.data.name, NoCollapsed),
+          (m) => new RenesasBuildModeItem(m, element.data.name, Expanded),
         );
         return items;
       }
@@ -252,7 +252,7 @@ class RenesasProjectTreeDataProvider {
     if (!currentProject && !element) {
       return [];
     } else if (!(currentProject instanceof RenesasProjectItem)) {
-      return [new RenesasProjectItem(currentProject, "", true)];
+      return [new RenesasProjectItem(currentProject, "", Expanded)];
     }
   }
 
