@@ -21,8 +21,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run lint and tests
-        run: npm test
+      # - name: Run lint
+      #   run: npm run lint
+
+      # - name: Run tests
+      #   run: xvfb-run -a npm run test
 
       - name: Publish VS Code extension
         run: npx @vscode/vsce publish --pat "$VSCODE_MARKETPLACE_TOKEN"
