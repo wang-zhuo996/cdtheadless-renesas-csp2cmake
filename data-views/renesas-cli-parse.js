@@ -315,18 +315,19 @@ class RenesasMtpjParser {
         fs.writeFileSync(path.join(workspace, file), write_template);
       }
     }
+    const cmake_configers = vscode.workspace.getConfiguration("cmake");
 
-    configers.update("configureSettings", {
+    cmake_configers.update("configureSettings", {
       "CMAKE_TOOLCHAIN_FILE": "${workspaceFolder}/cmake/cross.cmake",
       "CMAKE_TOOLS_FOLDER": "${command:renesas.utilities.folder}/tools",
     })
-    configers.update("sourceDirectory", "${workspaceFolder}");
-    configers.update("preferredGenerators", [
+    cmake_configers.update("sourceDirectory", "${workspaceFolder}");
+    cmake_configers.update("preferredGenerators", [
       "Ninja",
       "MinGW Makefiles",
       "Unix Makefiles"
     ]);
-    configers.update("configureOnOpen", true);
+    cmake_configers.update("configureOnOpen", true);
 
     const cmake_extension = vscode.extensions.getExtension('twxs.cmake')
 
