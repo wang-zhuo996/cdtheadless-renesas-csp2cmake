@@ -10,6 +10,7 @@ const search_file = require("./src/search_file");
 // ── Renesas CSP2CMake ──────────────────────────────────────
 const renesasMtpj = require("./data-views/renesas-mtpj");
 const {setContext} = require('./data-views/renesas-cli-parse')
+const {reformatSRecordFile, reformatSRecordFileInDocument} = require("./data-views/srecord_reformat");
 /**
  * @param {vscode.ExtensionContext} context
  */
@@ -75,7 +76,14 @@ function activate(context) {
 		"RenesasCSP2CMake.setCurrentProject",
 		setCurrentProject,
 	);
-
+	vscode.commands.registerCommand(
+		"Srecord.reformat",
+		reformatSRecordFile,
+	);
+	vscode.commands.registerCommand(
+		"Srecord.reformatinline",
+		reformatSRecordFileInDocument,
+	);
 	// Initial scan on activation
 	renesasMtpj
 		.refreshAll()

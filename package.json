@@ -14,7 +14,8 @@
   "extensionDependencies": [
     "twxs.cmake",
     "ms-vscode.cmake-tools",
-    "renesaselectronicscorporation.renesas-build-utilities"
+    "renesaselectronicscorporation.renesas-build-utilities",
+    "jacksun.motorola-srecord"
   ],
   "activationEvents": [
     "workspaceContains:**/.project",
@@ -63,6 +64,16 @@
         "command": "RenesasCSP2CMake.setCurrentProject",
         "title": "Set as Active Project",
         "icon": "$(play)"
+      },
+      {
+        "command": "Srecord.reformat",
+        "title": "Reformat SRecord File",
+        "icon": "$(file-binary)"
+      },
+      {
+        "command": "Srecord.reformatinline",
+        "title": "Reformat SRecord File Inline",
+        "icon": "$(file-binary)"
       }
     ],
     "viewsContainers": {
@@ -101,6 +112,32 @@
       ]
     },
     "menus": {
+      "explorer/context": [
+        {
+          "command": "Srecord.reformat",
+          "when": "resourceLangId == 's19'",
+          "group": "navigation"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "Srecord.reformatinline",
+          "when": "resourceLangId == 's19'",
+          "group": "navigation"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "Srecord.reformat",
+          "when": "resourceLangId == 's19'",
+          "group": "1_srecord@0"
+        },
+        {
+          "command": "Srecord.reformatinline",
+          "when": "resourceLangId == 's19'",
+          "group": "1_srecord@1"
+        }
+      ],
       "view/title": [
         {
           "command": "SearchedProjectTree.refreshEntry",
@@ -163,7 +200,8 @@
           "renesas.ccrh_toolchain_path": {
             "type": "string",
             "default": "",
-            "description": "设置CCRH Toolchain路径"
+            "description": "设置CCRH Toolchain路径",
+            "scope": "application"
           }
         }
       },
@@ -171,10 +209,8 @@
         "title": "S-Record Reformat Configurations",
         "properties": {
           "srecordReformat.segDataFormat": {
-            "type": "array",
-            "default": [
-              "S2"
-            ],
+            "type": "string",
+            "default": "S2",
             "enum": [
               "S1",
               "S2",
@@ -196,6 +232,12 @@
             "type": "integer",
             "default": 200,
             "description": "设置S-Record重格式化输出的段数据最小间隔，默认为200"
+          },
+          "srecordReformat.reformatFileFormat": {
+            "type":"string",
+            "default":"${fileDirname}/${fileBasenameNoExtension}_reformatted${fileExtname}",
+            "description": "设置S-Record重格式化输出的文件路径和名称，默认为在原文件目录下，原文件名加上_reformatted后缀，扩展名为.s19",
+            "scope": "application"
           }
         }
       }
