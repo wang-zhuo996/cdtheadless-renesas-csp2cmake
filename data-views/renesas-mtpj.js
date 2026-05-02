@@ -52,11 +52,8 @@ function parseMtpjFile(filePath) {
 
     if (file_list_data) {
       file_list_data.Instance.forEach((instance) => {
-        if (instance.Type) {
-          if (instance.Type[0] === "Category") {
-
-          }
-          else if (instance.Type[0] === "File") file_tree.files[instance.$.Guid] = instance.RelativePath[0];
+        if (instance.Type && instance.Type[0] === "File") {
+          file_tree.files[instance.$.Guid] = instance.RelativePath[0];
         }
       })
     }
@@ -145,9 +142,7 @@ function parseMtpjFile(filePath) {
 // ─────────────────────────────────────────────────────────────
 // TreeItem classes
 // ─────────────────────────────────────────────────────────────
-const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
-const Expanded = vscode.TreeItemCollapsibleState.Expanded;
-const NoCollapsed = vscode.TreeItemCollapsibleState.None;
+const { Expanded, None: NoCollapsed } = vscode.TreeItemCollapsibleState;
 
 class RenesasProjectItem extends vscode.TreeItem {
   /**
@@ -353,10 +348,8 @@ async function refreshAll() {
   );
 
   // Auto-select first project if none selected
-  if (!currentProject && globalMtpjConfig.length > 0) {
-    globalMtpjConfig.sort((a, b) => a.name.localeCompare(b.name)); // sort alphabetically
-    if (globalMtpjConfig.length == 1)
-      currentProject = globalMtpjConfig[0];
+  if (!currentProject && globalMtpjConfig.length === 1) {
+    currentProject = globalMtpjConfig[0];
   }
 
   if (buildModeProvider) buildModeProvider.refresh();
@@ -372,9 +365,9 @@ async function refreshAll() {
 const buildProject = async (element) => {
   await refreshAll()
   if (element instanceof RenesasBuildModeItem) {
-    currentProject = globalMtpjConfig.filter(
+    currentProject = globalMtpjConfig.find(
       (p) => p.name === element.projectName,
-    )[0];
+    );
     await currentProjectParser.parseMtpjXmlObj(currentProject);
     if (projectProvider) projectProvider.refresh();
   }

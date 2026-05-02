@@ -1,5 +1,4 @@
 const vscode = require("vscode");
-// const xml2js = require("xml2js");
 const ejs = require("ejs");
 const fs = require("fs");
 const path = require("path");
@@ -7,9 +6,7 @@ const mtpj2cli = require("./mtpj2cli_parse.json");
 const cli_maker = require("./renesas-cli-maker");
 
 const cli_maker_map = cli_maker.cli_maker;
-// const Collapsed = vscode.TreeItemCollapsibleState.Collapsed;
-// const Expanded = vscode.TreeItemCollapsibleState.Expanded;
-// const NoCollapsed = vscode.TreeItemCollapsibleState.None;
+const DEFAULT_CCRH_PATH = "C:/Program Files (x86)/Renesas Electronics/CS+/CC/CC-RH";
 
 let extensionContext = null;
 
@@ -26,23 +23,6 @@ function replaceVars(str, variables) {
     return variables[varName] !== undefined ? variables[varName] : match;
   });
 }
-
-// class RenesasOptionItem extends vscode.TreeItem {
-//   /**
-//    * @param {object} src  { guid, type }
-//    */
-//   constructor(name, is_setting, description) {
-//     super(name, NoCollapsed);
-//     this.name = name;
-//     this.contextValue = "optionItem";
-//     this.tooltip = `${description}`;
-//     if (is_setting) {
-//       this.iconPath = new vscode.ThemeIcon("pass");
-//     } else {
-//       this.iconPath = new vscode.ThemeIcon("error");
-//     }
-//   }
-// }
 
 class RenesasOptionFilter {
   constructor(type) {
@@ -166,43 +146,10 @@ class RenesasMtpjParser {
         ),
       );
     }
-    let deflaut_path = path.normalize("C:/Program Files (x86)/Renesas Electronics/CS+/CC/CC-RH")
     const configers = vscode.workspace.getConfiguration("renesas");
     this.last_version = Object.assign({}, ...this.cli_maker["C编译选项"].get("-V").input_args)["version"];
-    const last_compiler_path = path.normalize(Object.assign({}, ...this.cli_maker["C编译选项"].get("-V").input_args)["path"][1] + '../');
-    const vscode_config_path = path.normalize(configers.get("ccrh_toolchain_path") || "");
-
-    if (!fs.existsSync(deflaut_path)) {
-      if (fs.existsSync(last_compiler_path)) {
-        deflaut_path = last_compiler_path;
-      }
-      else if (fs.existsSync(vscode_config_path)) {
-        deflaut_path = vscode_config_path;
-      }
-    }
-
-    const version_list = fs.readdirSync(deflaut_path, { withFileTypes: true }).filter((dirent) => dirent.isDirectory() && dirent.name.startsWith("V")).map((dirent) => dirent.name);
-    this.version = this.last_version;
-
-    if (version_list.includes(this.last_version)) {
-      this.version = this.last_version;
-    }
-    else {
-      for (let idx = 0; idx < version_list.length; idx++) {
-        const version = version_list[idx];
-        const version_number = version.replace("V", "").split(".").map(num => parseInt(num));
-        const last_version_number = this.last_version.replace("V", "").split(".").map(num => parseInt(num));
-        for (let i = 0; i < version_number.length; i++) {
-          if (version_number[i] > last_version_number[i]) {
-            this.version = version;
-            break;
-          } else if (version_number[i] < last_version_number[i]) {
-            break;
-          }
-        }
-        if (this.version === version_list[idx]) break;
-      }
-    }
+    const { version, toolchainPath } = this._detectVersion(configers);
+    this.version = version;
 
     for (const item of this.projectTypeMap[data.projectType]) {
       this.cli_maker[item].setVersion(this.version);
@@ -210,7 +157,48 @@ class RenesasMtpjParser {
     for (const item of this.option_filted) {
       item.filter_options();
     }
-    configers.update("ccrh_toolchain_path", deflaut_path, vscode.ConfigurationTarget.Global);
+    configers.update("ccrh_toolchain_path", toolchainPath, vscode.ConfigurationTarget.Global);
+  }
+
+  _detectVersion(configers) {
+    const lastCompilerInputs = Object.assign({}, ...this.cli_maker["C编译选项"].get("-V").input_args);
+    const lastVersion = lastCompilerInputs["version"] || "";
+    const lastCompilerPath = path.normalize((lastCompilerInputs["path"]?.[1] || "") + '../');
+    const vscodeConfigPath = path.normalize(configers.get("ccrh_toolchain_path") || "");
+
+    let toolchainPath = path.normalize(DEFAULT_CCRH_PATH);
+    if (!fs.existsSync(toolchainPath)) {
+      if (fs.existsSync(lastCompilerPath)) {
+        toolchainPath = lastCompilerPath;
+      } else if (fs.existsSync(vscodeConfigPath)) {
+        toolchainPath = vscodeConfigPath;
+      }
+    }
+
+    const versionList = fs.readdirSync(toolchainPath, { withFileTypes: true })
+      .filter(dirent => dirent.isDirectory() && dirent.name.startsWith("V"))
+      .map(dirent => dirent.name);
+
+    let version = lastVersion;
+    if (versionList.includes(lastVersion)) {
+      version = lastVersion;
+    } else {
+      const lastParts = lastVersion.replace("V", "").split(".").map(Number);
+      for (const candidate of versionList) {
+        const candidateParts = candidate.replace("V", "").split(".").map(Number);
+        for (let i = 0; i < candidateParts.length; i++) {
+          if (candidateParts[i] > (lastParts[i] || 0)) {
+            version = candidate;
+            break;
+          } else if (candidateParts[i] < (lastParts[i] || 0)) {
+            break;
+          }
+        }
+        if (version === candidate) break;
+      }
+    }
+
+    return { version, toolchainPath };
   }
 
   async generateCmakeCli() {
@@ -255,29 +243,7 @@ class RenesasMtpjParser {
       //   include_path_list.join("\n    ${CMAKE_SOURCE_DIR}/");
     }
 
-    // const prj_class_data = Object.assign({},...this.data.matched_class.Instance);
-
-    const all_files_with_times = {};
-    Object.keys(this.data.excute_files).map((key) => {
-      const file_data = this.data.matched_class.Instance.find((item) => item.$.Guid === key);
-      all_files_with_times[file_data.ItemAddTime[0]] = Object.assign([], { [parseInt(file_data.ItemAddTimeCount[0])]: key }, (all_files_with_times[file_data.ItemAddTime[0]] || []));
-    });
-
-
-    const all_files_with_name = [];
-    Object.keys(all_files_with_times).sort().map((key) => {
-      for (let index = 0; index < all_files_with_times[key].length; index++) {
-        const element = all_files_with_times[key][index];
-        if (element != undefined && (element.length ?? 0) == 36) {
-          all_files_with_name.push(this.data.file_tree.files[element]);
-        }
-        else if (element != undefined) {
-          console.debug("文件guid异常", element, "对应的添加时间为", key);
-        }
-      }
-    })
-    const all_files = "    ${CSP_PROJECT_ROOT_PATH}/" + all_files_with_name.map((item) => item.replaceAll("\\", "/")).join("\n    ${CSP_PROJECT_ROOT_PATH}/");
-    const asm_files = "    ${CSP_PROJECT_ROOT_PATH}/" + Object.values(this.data.file_tree.files).map((item) => item.replaceAll("\\", "/")).filter((item) => item.endsWith(".asm")).join("\n    ${CSP_PROJECT_ROOT_PATH}/");
+    const { all_files, asm_files } = this._buildOrderedFileList();
 
     const ejs_value = {
       csp_prj_root_path,
@@ -292,29 +258,7 @@ class RenesasMtpjParser {
       all_files,
       asm_files
     };
-    const root = getContext().extensionPath;
-    const workspace = vscode.workspace.workspaceFolders[0].uri.fsPath;
-
-    const file_list = [
-      "CMakeLists.txt",
-      "cmake/cross.cmake",
-      "cmake/Config.cmake",
-      "cmake/GeneratedCfg.cmake",
-      "cmake/GeneratedSrc.cmake",
-    ];
-
-    for (const file of file_list) {
-      fs.mkdirSync(path.dirname(path.join(workspace, file)), { recursive: true });
-      const read_template = fs.readFileSync(
-        path.join(root, "data-views", "template", file),
-        "utf-8")
-
-      if (read_template) {
-        const write_template = ejs.render(read_template, ejs_value);
-        // console.log(write_template);
-        fs.writeFileSync(path.join(workspace, file), write_template);
-      }
-    }
+    this._renderTemplates(ejs_value);
     const cmake_configers = vscode.workspace.getConfiguration("cmake");
 
     cmake_configers.update("configureSettings", {
@@ -328,6 +272,68 @@ class RenesasMtpjParser {
       "Unix Makefiles"
     ]);
     cmake_configers.update("configureOnOpen", true);
+  }
+
+  _buildOrderedFileList() {
+    const instanceData = this.data.matched_class.Instance;
+    const fileTree = this.data.file_tree;
+    const executeFiles = this.data.excute_files;
+
+    const filesByTime = {};
+    Object.keys(executeFiles).forEach((key) => {
+      const fileData = instanceData.find((item) => item.$.Guid === key);
+      const addTime = fileData.ItemAddTime[0];
+      const addTimeCount = parseInt(fileData.ItemAddTimeCount[0]);
+      filesByTime[addTime] = Object.assign([],
+        { [addTimeCount]: key },
+        (filesByTime[addTime] || []));
+    });
+
+    const orderedNames = [];
+    Object.keys(filesByTime).sort().forEach((timeKey) => {
+      for (let i = 0; i < filesByTime[timeKey].length; i++) {
+        const guid = filesByTime[timeKey][i];
+        if (guid !== undefined && (guid.length ?? 0) === 36) {
+          orderedNames.push(fileTree.files[guid]);
+        } else if (guid !== undefined) {
+          console.debug("文件guid异常", guid, "对应的添加时间为", timeKey);
+        }
+      }
+    });
+
+    const prefix = "    ${CSP_PROJECT_ROOT_PATH}/";
+    const allFiles = prefix + orderedNames
+      .map(item => item.replaceAll("\\", "/"))
+      .join("\n" + prefix);
+
+    const asmFiles = prefix + Object.values(fileTree.files)
+      .map(item => item.replaceAll("\\", "/"))
+      .filter(item => item.endsWith(".asm"))
+      .join("\n" + prefix);
+
+    return { all_files: allFiles, asm_files: asmFiles };
+  }
+
+  _renderTemplates(ejsValue) {
+    const fileList = [
+      "CMakeLists.txt",
+      "cmake/cross.cmake",
+      "cmake/Config.cmake",
+      "cmake/GeneratedCfg.cmake",
+      "cmake/GeneratedSrc.cmake",
+    ];
+
+    const templateRoot = path.join(getContext().extensionPath, "data-views", "template");
+    const workspacePath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+
+    for (const file of fileList) {
+      const outputPath = path.join(workspacePath, file);
+      fs.mkdirSync(path.dirname(outputPath), { recursive: true });
+      const template = fs.readFileSync(path.join(templateRoot, file), "utf-8");
+      if (template) {
+        fs.writeFileSync(outputPath, ejs.render(template, ejsValue));
+      }
+    }
   }
 }
 

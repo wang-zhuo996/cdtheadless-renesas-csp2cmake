@@ -87,7 +87,14 @@ class RenesasCliOption {
     compileOptionOutputCli() {
         this.final_args = Object.assign({}, ...this.input_args);
         if (this.compiled_format && this.args_valid != undefined) {
-            while (this.args.map((item) => this.final_args[item] in this.args_valid).some(Boolean)) {
+            // Resolve chained value lookups (e.g. value -> args_valid[value] -> args_valid[...])
+            let iterations = 0;
+            const MAX_ITERATIONS = 10;
+            while (this.args.some(arg => this.final_args[arg] in this.args_valid)) {
+                if (++iterations > MAX_ITERATIONS) {
+                    console.warn(`Option ${this.key}: args_valid chain exceeded ${MAX_ITERATIONS} iterations`);
+                    break;
+                }
                 for (const key of this.args) {
                     if (this.final_args[key] in this.args_valid) {
                         this.final_args[key] = this.args_valid[this.final_args[key]];
@@ -158,75 +165,59 @@ class RenesasCliMaker {
             const dbl_size = this.options.get('-Xdbl_size');
             const cpu_options = this.options.get('-Xcpu');
 
-            const fpu_flag = (() => {
-                const fpu_check = () => { return fpu_config.switchCheck() && this.access_required(fpu_config.requiredCheck()) };
-                const cpu_type = cpu_options ? Object.assign({}, ...cpu_options.input_args)['core'] : '';
-                if (cpu_type === 'g3k') return 'soft';
-                if (['g3kh', 'g3m', 'g3mh'].includes(cpu_type) && !fpu_check()) return 'fpu';
-                if (fpu_check()) {
-                    return Object.assign({}, ...fpu_config.input_args)['value'];
-                }
-                else return 'none';
-            })();
+            const fpu_check = () => fpu_config.switchCheck() && this.access_required(fpu_config.requiredCheck());
+            const cpu_type = cpu_options ? Object.assign({}, ...cpu_options.input_args)['core'] : '';
+
+            let fpu_flag;
+            if (cpu_type === 'g3k') {
+                fpu_flag = 'soft';
+            } else if (['g3kh', 'g3m', 'g3mh'].includes(cpu_type) && !fpu_check()) {
+                fpu_flag = 'fpu';
+            } else if (fpu_check()) {
+                fpu_flag = Object.assign({}, ...fpu_config.input_args)['value'];
+            } else {
+                fpu_flag = 'none';
+            }
 
             let round_flag = round_config.switchCheck() && this.access_required(round_config.requiredCheck());
             if (fpu_flag === 'none') round_flag = false;
             const dbl_size_flag = dbl_size.switchCheck() && this.access_required(dbl_size.requiredCheck());
-            console.debug("fpu_flag", fpu_flag, "round_flag", round_flag, "dbl_size_flag", dbl_size_flag);
 
-            return `rh${fpu_flag === 'none' || fpu_flag === 'soft' ? 's' : 'f'}${dbl_size_flag ? '4' : '8'}${round_flag ? 'z' : 'n'}`
-        }
-        catch (error) {
+            return `rh${fpu_flag === 'none' || fpu_flag === 'soft' ? 's' : 'f'}${dbl_size_flag ? '4' : '8'}${round_flag ? 'z' : 'n'}`;
+        } catch (error) {
             console.log(error);
-            return ''
+            return '';
         }
     }
-    access_required(required_req, max_ver, min_ver) {
-        if (max_ver) {
-            if (this.versionCompare(max_ver) > 0) return false;
-        }
-        if (min_ver) {
-            if (this.versionCompare(min_ver) < 0) return false;
-        }
-        if (required_req === true) return true;
-        // console.log("required_req", required_req);
-        if (required_req instanceof Array) {
-            return required_req.map((item) => {
-                let res = true;
-                if (item === undefined) return res;
-
-                for (const key of Object.keys(item))
-                    if (this.options.has(key)) {
-                        Object.entries(Object.assign({}, ...this.options.get(key).input_args)).forEach(
-                            ([_key, _value]) => {
-                                if (item[key][_key] instanceof Array)
-                                    res = res && item[key][_key].includes(_value);
-                                else if (item[key][_key] === _value)
-                                    res = res && true;
-                                else res = res && false;
-                            }
-                        )
-                    }
-                return res;
-            }).some(Boolean);
-        }
-        else {
-            let res = true;
-            for (const key of Object.keys(required_req)) {
-                if (this.options.has(key)) {
-                    Object.entries(Object.assign({}, ...this.options.get(key).input_args)).forEach(
-                        ([_key, _value]) => {
-                            if (required_req[key][_key] instanceof Array)
-                                res = res && required_req[key][_key].includes(_value);
-                            else if (required_req[key][_key] === _value)
-                                res = res && true;
-                            else res = res && false;
-                        }
-                    )
+    _checkOptionMatch(conditions) {
+        for (const optKey of Object.keys(conditions)) {
+            if (!this.options.has(optKey)) continue;
+            const inputArgs = Object.assign({}, ...this.options.get(optKey).input_args);
+            for (const [argKey, expected] of Object.entries(conditions[optKey])) {
+                const actual = inputArgs[argKey];
+                if (Array.isArray(expected)) {
+                    if (!expected.includes(actual)) return false;
+                } else if (expected !== actual) {
+                    return false;
                 }
             }
-            return res;
         }
+        return true;
+    }
+
+    access_required(required_req, max_ver, min_ver) {
+        if (max_ver && this.versionCompare(max_ver) > 0) return false;
+        if (min_ver && this.versionCompare(min_ver) < 0) return false;
+        if (required_req === true) return true;
+
+        if (Array.isArray(required_req)) {
+            return required_req
+                .filter(item => item !== undefined)
+                .map(item => this._checkOptionMatch(item))
+                .some(Boolean);
+        }
+
+        return this._checkOptionMatch(required_req);
     }
 
     filter_options() {

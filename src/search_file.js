@@ -1,124 +1,71 @@
-const vscode = require("vscode")
+const vscode = require("vscode");
 const fs = require('fs');
 const xml2js = require('xml2js');
 const path = require('path');
 
-let projectConfiguration = new Array();
-let globalProjectConfig = new Array();
 async function findProjectFiles() {
     const pattern = '**/{.project,.cproject}';
     const files = await vscode.workspace.findFiles(pattern);
     return files.map(file => file.fsPath);
 }
 
-// 解析 .project 文件
-/**
- * @param {fs.PathOrFileDescriptor} filePath
- * @param {string} projectName
- */
-function parseProjectFile(filePath,projectName) {
-    const xml = fs.readFileSync(filePath, 'utf8');
-    xml2js.parseString(xml, (err, result) => {
-        if (err) {
-            console.error('解析 .project 文件出错:', err);
-            return;
-        }
+async function getProjectConfig() {
+    const files = await findProjectFiles();
+    if (files.length === 0) return [];
 
-        // 提取相关配置信息
-        if(projectConfiguration[projectName] == undefined)
-            projectConfiguration[projectName] = {};
-        try{
-            projectConfiguration[projectName]["name"] = result.projectDescription.name[0];
-            projectConfiguration[projectName]["buildCommands"] = result.projectDescription.buildSpec[0].buildCommand.map(command => command.name[0]);    
-        }
-        catch (error)
-        {
-            // 可以在这里记录错误信息
-            // console.error(`Error processing project ${projectName}:`, error);
-            // 删除项目配置
-            delete projectConfiguration[projectName];
-        }
+    const workspaceFolders = vscode.workspace.workspaceFolders;
+    if (!workspaceFolders) return [];
 
-        // console.log('项目名称:', projectName);
-        // console.log('构建命令:', buildCommands);
-    });
-}
+    const workspaceFolder = workspaceFolders[0].uri.fsPath;
+    const projectMap = {};
 
-// 解析 .cproject 文件
-/**
- * @param {fs.PathOrFileDescriptor} filePath
- * @param {string} projectName
- */
-function parseCProjectFile(filePath,projectName) {
-    const xml = fs.readFileSync(filePath, 'utf8');
-    xml2js.parseString(xml, (err, result) => {
-        if (err) {
-            console.error('解析 .cproject 文件出错:', err);
-            return;
+    for (const filePath of files) {
+        const dirPath = path.relative(workspaceFolder, path.dirname(filePath));
+        if (!projectMap[dirPath]) projectMap[dirPath] = {};
+
+        try {
+            const xml = fs.readFileSync(filePath, 'utf8');
+            const result = await xml2js.parseStringPromise(xml);
+
+            if (filePath.includes('.cproject')) {
+                const storageModule = result?.cproject?.storageModule?.find(
+                    sm => sm.$?.moduleId === "org.eclipse.cdt.core.settings"
+                );
+                if (storageModule?.cconfiguration) {
+                    projectMap[dirPath].configurations = storageModule.cconfiguration.map(config => ({
+                        name: config.storageModule[0].$.name,
+                        toolChainId: config.storageModule[0].$.id,
+                        buildSystemId: config.storageModule[0].$.buildSystemId,
+                    }));
+                }
+            } else if (filePath.includes('.project')) {
+                const desc = result?.projectDescription;
+                if (desc) {
+                    projectMap[dirPath].name = desc.name[0];
+                    projectMap[dirPath].buildCommands = desc.buildSpec[0].buildCommand.map(cmd => cmd.name[0]);
+                }
+            }
+        } catch (err) {
+            console.error(`Error parsing ${filePath}:`, err);
         }
+    }
 
-        // 提取相关配置信息
-        if(projectConfiguration[projectName] == undefined)
-            projectConfiguration[projectName] = {};
-        try{
-            projectConfiguration[projectName]["configurations"] = result.cproject.storageModule.map(coreSettings => {
-                if(coreSettings.$.moduleId == "org.eclipse.cdt.core.settings")
-                    return coreSettings.cconfiguration;
-            })[0]
-            .map(config => {
-                return {
-                    name: config.storageModule[0].$.name,
-                    // buildDir: config.$.buildDirectory,
-                    toolChainId: config.storageModule[0].$.id,
-                    buildSystemId: config.storageModule[0].$.buildSystemId,
-                };
+    const configs = [];
+    for (const [projectName, data] of Object.entries(projectMap)) {
+        if (data.name) {
+            configs.push({
+                projectName,
+                name: data.name,
+                buildCommands: data.buildCommands || [],
+                configurations: data.configurations || [],
             });
         }
-        catch(error)
-        {
-            // console.error(`Error processing project ${projectName}:`, error);
-            delete projectConfiguration[projectName];
-        }
-        // console.log('构建配置:', configurations);
-    });
-}
-function getProjectConfig()
-{
-	findProjectFiles().then(files => {
-		if (files.length > 0) {
-			// file_path = files;
-			// console.log(file_path)
-			// console.log(vscode.workspace.workspaceFolders)
-            if (vscode.workspace.workspaceFolders == undefined) {
-                return;
-            }
-			const workspaceFolder = vscode.workspace.workspaceFolders[0].uri.fsPath; // 假设只有一个工作区文件夹
-			for (let index = 0; index < files.length; index++) {
-				const directoryPath = path.dirname(path.relative(workspaceFolder, files[index]));
-				// console.log(directoryPath);
-				if (files[index].includes(".cproject") )
-					parseCProjectFile(files[index],directoryPath)
-				else if (files[index].includes(".project"))
-					parseProjectFile(files[index],directoryPath)
-			}
-		} else {
-			// file_path = [];
-		}
-        for (const key in projectConfiguration) {
-            if (Object.prototype.hasOwnProperty.call(projectConfiguration, key)) {
-                const element = projectConfiguration[key];
-                let tempDict = { "projectName": key, "name": element.name, "buildCommands": element.buildCommands, "configurations": element.configurations }
-                globalProjectConfig.push(tempDict)
-            }
-        }
-		// console.log(globalProjectConfig)
-	});
+    }
+
+    return configs;
 }
 
 module.exports = {
     findProjectFiles,
-    parseCProjectFile,
-    parseProjectFile,
     getProjectConfig,
-    globalProjectConfig,
-}
+};
