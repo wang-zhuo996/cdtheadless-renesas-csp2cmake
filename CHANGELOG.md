@@ -4,11 +4,16 @@ All notable changes to the "cdtheadlessbuild-renesascsp2cmake" extension will be
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
-## [Unreleased]
+## [0.1.10] - 2026-05-07
 
-- Add support for multiple build configurations
-- Improve error handling and user feedback
-- Add batch project operations
+### Added
+- 新增 `renesas.project_name` 配置项，支持自定义 CMake 项目名称 (默认 `renesas`)
+- S-record 格式化增加进度通知和取消操作支持，提升大文件处理时的用户体验
+- `autoCompleteGeneratedS19` 增加项目名称前缀过滤，仅匹配当前项目生成的文件
+
+### Changed
+- CMakeLists.txt 模板项目名由硬编码改为从配置读入的动态变量 `<%- project_name %>`
+- S-record 格式化函数使用 `vscode.window.withProgress` 包裹，支持进度展示
 
 ## [0.1.9] - 2024-12-01
 

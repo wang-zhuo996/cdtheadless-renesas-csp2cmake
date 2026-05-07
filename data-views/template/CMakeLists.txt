@@ -1,7 +1,7 @@
 # Project minimum required CMake version
 cmake_minimum_required(VERSION 3.16)
 # Set the project name
-project(renesas
+project(<%- project_name %>
     VERSION 1.0.0
     LANGUAGES C ASM
 )

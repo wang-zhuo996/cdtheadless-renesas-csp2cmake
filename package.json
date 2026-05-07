@@ -203,6 +203,12 @@
             "description": "设置CCRH Toolchain路径",
             "scope": "application"
           },
+          "renesas.project_name":{
+            "type": "string",
+            "default": "renesas",
+            "description": "设置项目名称",
+            "scope": "resource"
+          },
           "renesas.genrpostbuild": {
             "type": "boolean",
             "default": false,

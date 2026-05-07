@@ -245,6 +245,7 @@ class RenesasMtpjParser {
 
     const { all_files, asm_files } = this._buildOrderedFileList();
 
+    const project_name = configers.get("project_name","renesas");
     const ejs_value = {
       csp_prj_root_path,
       c_compiler_options,
@@ -256,7 +257,8 @@ class RenesasMtpjParser {
       ccrh_toolchain_path,
       float_mode,
       all_files,
-      asm_files
+      asm_files,
+      project_name
     };
     this._renderTemplates(ejs_value);
     const cmake_configers = vscode.workspace.getConfiguration("cmake");

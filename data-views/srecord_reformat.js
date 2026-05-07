@@ -10,20 +10,53 @@ function resolveVariables(str, varEnv) {
 }
 
 async function reformatSRecordFile(filePath) {
-    const sRecordReformat = new SRecordReformat(filePath.fsPath);
-    await sRecordReformat.reformatSRecordFile();
-    return await sRecordReformat.generateNewSRecords(false);
+    await vscode.window.withProgress(
+        {
+            location: vscode.ProgressLocation.Notification,
+            title: `Reformatting ${path.basename(filePath.fsPath)} file...`,
+            cancellable: true,
+        },
+        async (progress, token) => {
+            token.onCancellationRequested(() => {
+                console.log("User canceled the long running operation");
+            });
+
+
+            const sRecordReformat = new SRecordReformat(filePath.fsPath, progress, token);
+            await sRecordReformat.reformatSRecordFile();
+            await sRecordReformat.generateNewSRecords(false);
+
+            vscode.window.showInformationMessage("reformatted successfully!");
+        }
+    )
 }
 
 async function reformatSRecordFileInDocument(filePath) {
-    const sRecordReformat = new SRecordReformat(filePath.fsPath);
-    await sRecordReformat.reformatSRecordFile();
-    return await sRecordReformat.generateNewSRecords(true);
+    await vscode.window.withProgress(
+        {
+            location: vscode.ProgressLocation.Notification,
+            title: `Reformatting ${path.basename(filePath.fsPath)} file in document...`,
+            cancellable: true,
+        },
+        async (progress, token) => {
+            token.onCancellationRequested(() => {
+                console.log("User canceled the long running operation");
+            });
+
+            const sRecordReformat = new SRecordReformat(filePath.fsPath, progress, token);
+            await sRecordReformat.reformatSRecordFile();
+            await sRecordReformat.generateNewSRecords(true);
+
+            vscode.window.showInformationMessage("reformatted successfully!");
+        }
+    )
 }
 
 class SRecordReformat {
-    constructor(filePath) {
+    constructor(filePath, process = null, token = null) {
         this.filePath = filePath;
+        this.process = process;
+        this.token = token;
         this.var_env = {};
         this.setVariable();
         const cfg = vscode.workspace.getConfiguration('srecordReformat');
@@ -54,11 +87,24 @@ class SRecordReformat {
         this.var_env['fileDirname'] = path.dirname(this.filePath);
     }
 
+    check_report(msg, increment = 0) {
+        if (!(this.process && this.token)) return;
+
+        if (this.token.isCancellationRequested) {
+            vscode.window.showInformationMessage("User canceled")
+            return;
+        }
+        if (msg && increment) {
+            this.process.report({ message: msg, increment: increment });
+        }
+    }
+
     async reformatSRecordFile() {
         const rl = readline.createInterface({
             input: fs.createReadStream(this.filePath),
             crlfDelay: Infinity
         });
+        this.check_report('正在解析文件...');
         for await (const line of rl) {
             if (!line.startsWith('S')) continue;
             const record = this.parseSRecord(line);
@@ -76,6 +122,7 @@ class SRecordReformat {
 
             const dataBuf = Buffer.from(record.data, 'hex');
             this.addDataSegment(record.address, dataBuf, record.data_length);
+            this.check_report(null)
         }
     }
 
@@ -123,6 +170,7 @@ class SRecordReformat {
         }
         const sortedAddresses = Array.from(this.dataMap.keys()).sort((a, b) => a - b);
         for (const addr of sortedAddresses) {
+            this.check_report(`正在生成输出文件 ${sortedAddresses.indexOf(addr)}/${sortedAddresses.length}...`, 100 * sortedAddresses.indexOf(addr) / sortedAddresses.length);
             lines.push(...this.createSRecordLine(this.dataMap.get(addr)));
         }
         if (this.endRecord) {
@@ -138,6 +186,7 @@ class SRecordReformat {
             const lines = this.buildOutputLines();
             const content = lines.join('\n');
 
+            this.check_report('正在写入文件...',99);
             if (inDocument) {
                 const editor = vscode.window.activeTextEditor;
                 if (!editor) return false;
@@ -242,6 +291,7 @@ async function autoCompleteGeneratedS19() {
     if (!workspaceFolders) return;
 
     const config = vscode.workspace.getConfiguration("cmake").get("buildDirectory");
+    const project_name = vscode.workspace.getConfiguration("renesas")?.get("project_name", "renesas") || ""
     if (!config) {
         vscode.window.showErrorMessage(`cmake.buildDirectory is not set`);
         return;
@@ -256,7 +306,7 @@ async function autoCompleteGeneratedS19() {
     try {
         const entries = await vscode.workspace.fs.readDirectory(dirUri);
         const files = entries
-            .filter(([, fileType]) => fileType === vscode.FileType.File)
+            .filter(([fileName, fileType]) => fileType === vscode.FileType.File && fileName.startsWith(project_name) && !["abs", "map", "x"].includes(fileName.split(".")[1]))
             .map(([fileName]) => vscode.Uri.joinPath(dirUri, fileName));
 
         const filesByLang = {};
