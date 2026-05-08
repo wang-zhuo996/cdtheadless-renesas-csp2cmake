@@ -117,8 +117,11 @@
                 "series"
             ],
             "args_valid": {
-                "series":["rh850","v850e3"],
-                "v850e3":"v850e3v5"
+                "series": [
+                    "rh850",
+                    "v850e3"
+                ],
+                "v850e3": "v850e3v5"
             },
             "switch": "<%= series != '' %>",
             "format": "-Xcommon=<%= series %>",
@@ -192,7 +195,7 @@
                 "macro"
             ],
             "switch": "<%= macro.map((i) => i!='').some(Boolean) %>",
-            "format": "-D<%= macro.join(',') %>",
+            "format": "-D<%= macro.map((i) => i!='').join(',') %>",
             "PEonly": false,
             "maxVersion": ""
         },
@@ -205,7 +208,7 @@
                 "macro"
             ],
             "switch": "<%= macro.map((i) => i!='').some(Boolean) %>",
-            "format": "-U<%= macro.join(',') %>",
+            "format": "-U<%= macro.map((i) => i!='').join(',') %>",
             "PEonly": false,
             "maxVersion": ""
         },
@@ -219,7 +222,7 @@
                 "sysdir"
             ],
             "switch": "<%= dir.map((i) => i!='').some(Boolean) || sysdir.map((i) => i!='').some(Boolean)%>",
-            "format": "-I<%= [...dir,...sysdir].join(',') %>",
+            "format": "-I<%= [...dir.map((i) => i!=''),...sysdir.map((i) => i!='')].join(',') %>",
             "PEonly": false,
             "maxVersion": ""
         },
@@ -232,7 +235,7 @@
                 "file"
             ],
             "switch": "<%= file.map((i) => i!='').some(Boolean) %>",
-            "format": "-Xpreinclude=<%= file.join(',') %>",
+            "format": "-Xpreinclude=<%= file.map((i) => i!='').join(',') %>",
             "PEonly": false,
             "maxVersion": ""
         },
@@ -460,7 +463,7 @@
                 "file_list"
             ],
             "switch": "<%= file_list.map((i) => i!='').some(Boolean) %>",
-            "format": "-Xignore_files_misra=<%= file_list.join(',') %>",
+            "format": "-Xignore_files_misra='${CSP_PROJECT_ROOT_PATH}/'+ file_list.map((i) => i!='').join(',${CSP_PROJECT_ROOT_PATH}/') ",
             "PEonly": true,
             "maxVersion": ""
         },
@@ -1696,7 +1699,7 @@
                 "value"
             ],
             "switch": "<%= value.map((i) => i!='').some(Boolean) %>",
-            "format": "-input=<%= value.join(',') %>"
+            "format": "-input=<%= value.map((i) => i!='').join(',') %>"
         },
         "-library": {
             "description": "此选项指定输入库文件。",
@@ -1709,7 +1712,7 @@
                 "value"
             ],
             "switch": "<%= value.map((i) => i!='').some(Boolean) %>",
-            "format": "-library=<%= value.join(',') %>"
+            "format": "-library=<%= value.map((i) => i!='').join(',') %>"
         },
         "-library_std": {
             "description": "指定标准库函数的处理方式",
@@ -2330,7 +2333,7 @@
                 "value"
             ],
             "switch": "<%= value.map((i) => i!='').some(Boolean) %>",
-            "format": "-output=<%= value.join(' -output=') %>"
+            "format": "-output=<%= value.map((i) => i!='').join(' -output=') %>"
         },
         "-form": {
             "description": "此选项指定输出格式。",
