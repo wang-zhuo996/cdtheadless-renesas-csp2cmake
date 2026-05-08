@@ -207,7 +207,7 @@ class RenesasOptionItem extends vscode.TreeItem {
     this.obj = obj;
     this.name = name;
     this.contextValue = "optionItem";
-    this.tooltip = `${obj.compileOptionOutputCli()}`;
+    this.tooltip = `${obj.description}：${obj.compileOptionOutputCli()}`;
     // this.description = src.type;
     if (inactive) {
       this.iconPath = new vscode.ThemeIcon("pass");
