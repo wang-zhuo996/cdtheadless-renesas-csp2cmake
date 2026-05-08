@@ -4,6 +4,15 @@ All notable changes to the "cdtheadlessbuild-renesascsp2cmake" extension will be
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.1.11] - 2026-05-08
+
+### Fixed
+- 修复命令格式化中 `.map((i) => i!='').join()` 误用为 `.filter((i) => i!='').join()`，解决空值未被过滤导致生成参数包含空逗号的问题（影响 `-D`、`-U`、`-I`、`-Xpreinclude`、`-Xignore_files_misra`、`-input`、`-library`、`-output` 共8个选项）
+- 修复 `-Xignore_files_misra` 选项的引号格式，使用变量拼接替代硬编码单引号
+
+### Changed
+- `cmake.cleanConfigure` 和 `cmake.build` 执行后检查 cmake 进程退出码，失败时（非0）显示错误提示并终止后续步骤，避免构建失败后继续执行 format 等操作
+
 ## [0.1.10] - 2026-05-07
 
 ### Added

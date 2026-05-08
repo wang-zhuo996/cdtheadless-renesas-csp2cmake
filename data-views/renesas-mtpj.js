@@ -386,10 +386,18 @@ const buildProject = async (element) => {
     try {
       await cmake_extension.activate();
       if (clearbuild) {
-        await vscode.commands.executeCommand("cmake.cleanConfigure");
+        const cleanResult = await vscode.commands.executeCommand("cmake.cleanConfigure");
+        if (cleanResult !== 0) {
+          vscode.window.showErrorMessage("[Renesas Build] cmake.cleanConfigure failed");
+          return;
+        }
       }
       if (buildAftergenr) {
-        await vscode.commands.executeCommand("cmake.build");
+        const buildResult = await vscode.commands.executeCommand("cmake.build");
+        if (buildResult !== 0) {
+          vscode.window.showErrorMessage("[Renesas Build] cmake.build failed");
+          return;
+        }
       }
       if (formatAftergenr) {
         await autoCompleteGeneratedS19();
